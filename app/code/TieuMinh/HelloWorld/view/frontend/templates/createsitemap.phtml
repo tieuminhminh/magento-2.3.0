@@ -1,0 +1,29 @@
+<?php
+/**
+ * @var $block TieuMinh\HelloWorld\Block\Sitemap\Index
+ */
+?>
+<form class="form" action="<?php $block->action();?>" method="post">
+    <fieldset class="fieldset">
+        <legend class="legend"><span>Create Form</span></legend><br>
+        <div class="field required">
+            <label for="number" class="label">
+                <span>Name</span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="number"
+                       name="number"
+                       class="input-text">
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" title="">
+                <span>Create</span>
+            </button>
+        </div>
+    </div>
+</form>

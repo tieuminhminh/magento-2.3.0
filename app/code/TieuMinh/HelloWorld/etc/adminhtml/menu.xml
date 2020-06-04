@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="TieuMinh_HelloWorld::sumup1" title="SumUp1" translate="title" module="TieuMinh_HelloWorld" sortOrder="51"
+             resource="TieuMinh_HelloWorld::helloworld"/>
+        <add id="TieuMinh_HelloWorld::sumup1_managepost" title="Manage Post" translate="title" module="TieuMinh_HelloWorld"
+             parent="TieuMinh_HelloWorld::sumup1" sortOrder="10"
+             resource="TieuMinh_HelloWorld::sumup1_managepost"/>
+        <add id="TieuMinh_HelloWorld::greetings_helloworld" title="Hello World" translate="title"
+             module="TieuMinh_HelloWorld" parent="TieuMinh_HelloWorld::sumup1" sortOrder="89"
+             dependsOnModule="TieuMinh_HelloWorld" action="helloworld/helloworld"
+             resource="TieuMinh_HelloWorld::greetings_helloword"/>
+        <add id="TieuMinh_HelloWorld::CRUD" title="CRUD" translate="title"
+             module="TieuMinh_HelloWorld" parent="TieuMinh_HelloWorld::sumup1" sortOrder="90"
+             dependsOnModule="TieuMinh_HelloWorld" action="helloworld/helloworld"
+             resource="TieuMinh_HelloWorld::CRUD"/>
+    </menu>
+</config>
