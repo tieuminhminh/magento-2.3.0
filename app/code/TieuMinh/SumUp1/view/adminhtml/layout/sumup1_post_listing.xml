@@ -9,6 +9,7 @@
     <body>
         <referenceContainer name="content">
             <uiComponent name="tieuminh_sumup1_post_listing"/>
+            <block class="TieuMinh\SumUp1\Block\Adminhtml\Post\Index" name="create_post" template="TieuMinh_SumUp1::viewpost.phtml"/>
         </referenceContainer>
     </body>
 </page>

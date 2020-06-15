@@ -1,0 +1,64 @@
+{
+    "tieuminh_post_set": {
+        "column": {
+            "post_id": true,
+            "title": true,
+            "short_description": true,
+            "content": true,
+            "thumbnail": true,
+            "status": true,
+            "url_key": true,
+            "publish_date_from": true,
+            "publish_date_to": true
+        },
+        "index": {
+            "TIEUMINH_POST_SET_TITLE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "tieuminh_category_set": {
+        "column": {
+            "category_id": true,
+            "parent_id": true,
+            "name": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "tieuminh_post_category": {
+        "column": {
+            "post_id": true,
+            "category_set_id": true
+        }
+    },
+    "tieuminh_post_gallery": {
+        "column": {
+            "post_id": true,
+            "url_gallery": true
+        }
+    },
+    "tieuminh_tag_set": {
+        "column": {
+            "tag_id": true,
+            "name": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "tieuminh_post_tag": {
+        "column": {
+            "post_id": true,
+            "tag_id": true
+        }
+    },
+    "tieuminh_post_product": {
+        "column": {
+            "post_id": true,
+            "product_id": true
+        }
+    }
+}

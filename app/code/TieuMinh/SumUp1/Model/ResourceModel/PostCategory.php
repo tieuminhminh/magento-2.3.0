@@ -3,7 +3,7 @@ namespace TieuMinh\SumUp1\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
-class Post extends AbstractDb
+class PostCategory extends AbstractDb
 {
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context
@@ -13,6 +13,6 @@ class Post extends AbstractDb
 
     protected function _construct()
     {
-        $this->_init('tieuminh_post_set', 'post_id');
+        $this->_init('tieuminh_post_category', 'post_id');
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+   <!-- post table-->
+    <table name="tieuminh_post_set" resource="default" comment="Create table using declarative schema">
+        <column xsi:type="int" name="post_id" padding="25" identity="true" unsigned="true" nullable="false" comment="Post ID"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false"/>
+        <column xsi:type="text" name="short_description" comment="Short Description" nullable="true"/>
+        <column xsi:type="text" name="content" comment="Content" nullable="true"/>
+        <column xsi:type="text" name="thumbnail" comment="Thumbnail" nullable="true"/>
+        <column xsi:type="int" name="status" comment="publish is 1 and 0 is not" unsigned="true" default="0"/>
+        <column xsi:type="text" name="url_key" comment="URL Key" nullable="false"/>
+        <column xsi:type="timestamp" name="publish_date_from" comment="Publish Date From"/>
+        <column xsi:type="timestamp" name="publish_date_to" comment="Publish Date To"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id"/>
+        </constraint>
+             <index referenceId="INDEX_SEVERITY" indexType="btree">
+                  <column name="title"/>
+              </index>
+    </table>
+    <!-- post table-->
+    <!-- category set table-->
+    <table name="tieuminh_category_set" comment="Category of post">
+        <column xsi:type="int" name="category_id" padding="25" identity="true" nullable="false" unsigned="true" comment="Category ID" />
+        <column xsi:type="int" name="parent_id" padding="25" nullable="false" unsigned="true" comment="Parent ID" default="0"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="false" comment="Category Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="category_id"/>
+        </constraint>
+     <!--   <constraint xsi:type="foreign" referenceId="FK_Category_Category" table="category" column="parent_id" referenceTable="category" referenceColumn="category_id" onDelete="CASCADE"/>-->
+    </table>
+    <!-- category set table-->
+    <!--  post category table-->
+    <table name="tieuminh_post_category">
+        <column xsi:type="int" name="post_id" padding="25" nullable="false" unsigned="true" comment="post id from post table" />
+        <column xsi:type="int" name="category_set_id" padding="25" nullable="false" unsigned="true" comment="post id from post table" />
+    </table>
+    <!--  post category table-->
+    <!--  gallery set table-->
+    <table name="tieuminh_post_gallery">
+        <column xsi:type="int" name="post_id" padding="25" unsigned="true" comment="post id from post set table"/>
+        <column xsi:type="varchar" name="url_gallery" length="255" nullable="true" comment="gallery url"/>
+    </table>
+    <!--  gallery set table-->
+    <!--  tag set table-->
+    <table name="tieuminh_tag_set">
+        <column xsi:type="int" name="tag_id" padding="25" unsigned="true" identity="true" nullable="false" comment="tag id"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="false" comment="Tag name"/>
+     <constraint xsi:type="primary" referenceId="PRIMARY">
+         <column name="tag_id" />
+     </constraint>
+    </table>
+    <!--  tag set table-->
+    <!--  post tag table-->
+    <table name="tieuminh_post_tag">
+        <column xsi:type="int" name="post_id" nullable="false" unsigned="true" padding="25" comment="post id from post set table"/>
+        <column xsi:type="int" name="tag_id" nullable="false" unsigned="true" padding="25" comment="tag id from tag set table"/>
+    </table>
+    <!--  post tag table-->
+    <!--  post tag table-->
+    <table name="tieuminh_post_product">
+        <column xsi:type="int" name="post_id" nullable="false" unsigned="true" padding="25" comment="post id from post set table"/>
+        <column xsi:type="int" name="product_id" nullable="false" unsigned="true" padding="25" comment="related product id"/>
+    </table>
+    <!--  post tag table-->
+
+</schema>

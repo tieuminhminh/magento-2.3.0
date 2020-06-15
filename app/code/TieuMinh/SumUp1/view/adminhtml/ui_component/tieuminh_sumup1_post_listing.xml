@@ -1,8 +1,13 @@
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <!--provider setting-->
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">tieuminh_sumup1_post_listing.tieuminh_sumup1_post_listing_data_source</item>
-            <item name="deps" xsi:type="string">tieuminh_sumup1_post_listing.tieuminh_sumup1_post_listing_data_source</item>
+            <item name="provider" xsi:type="string">
+                tieuminh_sumup1_post_listing.tieuminh_sumup1_post_listing_data_source
+            </item>
+            <item name="deps" xsi:type="string">tieuminh_sumup1_post_listing.tieuminh_sumup1_post_listing_data_source
+            </item>
         </item>
         <item name="spinner" xsi:type="string">spinner_columns</item>
         <item name="buttons" xsi:type="array">
@@ -14,13 +19,16 @@
             </item>
         </item>
     </argument>
+    <!--provider setting-->
+    <!--toolbar setting-->
     <listingToolbar name="listing_top">
         <settings>
             <sticky>true</sticky>
         </settings>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
-        <filterSearch name="fulltext"/>
+<!--           <filterSearch name="fulltext"/>-->
+        <!--filter setting-->
         <filters name="listing_filters">
             <settings>
                 <templates>
@@ -32,7 +40,7 @@
                     </filters>
                 </templates>
             </settings>
-            <filterSelect name="store_id" provider="${ $.parentName }">
+         <!--   <filterSelect name="store_id" provider="${ $.parentName }">
                 <settings>
                     <captionValue>0</captionValue>
                     <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
@@ -42,8 +50,10 @@
                         <link name="visible">componentType = column, index = ${ $.index }:visible</link>
                     </imports>
                 </settings>
-            </filterSelect>
+            </filterSelect>-->
         </filters>
+        <!--filter setting-->
+        <!--massaction-->
         <massaction name="listing_massaction">
             <action name="delete">
                 <settings>
@@ -51,24 +61,42 @@
                         <message translate="true">Are you sure you want to delete selected items?</message>
                         <title translate="true">Delete items</title>
                     </confirm>
-                    <url path="cms/block/massDelete"/>
+                    <url path="sumup1/post/massdelete"/>
                     <type>delete</type>
                     <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="disable">
+                <settings>
+                    <url path="sumup1/post/massDelete"/>
+                    <type>disable</type>
+                    <label translate="true">Disable</label>
+                </settings>
+            </action>
+            <action name="enable">
+                <settings>
+                    <url path="sumup1/post/massEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Enable</label>
                 </settings>
             </action>
             <action name="edit">
                 <settings>
                     <callback>
                         <target>editSelected</target>
-                        <provider>cms_block_listing.cms_block_listing.cms_block_columns_editor</provider>
+                        <provider>tieuminh_sumup1_post_listing.tieuminh_sumup1_post_listing.cms_page_columns_editor
+                        </provider>
                     </callback>
                     <type>edit</type>
                     <label translate="true">Edit</label>
                 </settings>
             </action>
         </massaction>
+        <!--massaction-->
         <paging name="listing_paging"/>
     </listingToolbar>
+    <!--toolbar setting-->
+    <!--datasource-->
     <dataSource name="nameOfDataSource">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">TieuMinh\SumUp1\Ui\Component\DataProvider</argument>
@@ -86,39 +114,96 @@
             </argument>
         </argument>
     </dataSource>
+    <!--datasource-->
+    <!--list column-->
     <columns name="spinner_columns">
+        <!--select column-->
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>
                     <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">post_id</item>
+                    <item name="indexField" xsi:type="string">title</item>
                 </item>
             </argument>
         </selectionsColumn>
+        <!--select column-->
+        <!--post id column-->
         <column name="post_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">textRange</item>
                     <item name="sorting" xsi:type="string">asc</item>
-                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">id</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <!--post id column-->
+        <!--post title column-->
+        <column name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Title</item>
                 </item>
             </argument>
         </column>
-        <column name="name">
+        <!--post title column-->
+        <!--post short description column-->
+        <column name="short_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">short_description</item>
+                </item>
+            </argument>
+        </column>
+        <!--post short description column-->
+        <!--post content column-->
+        <column name="content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
                     <item name="editor" xsi:type="array">
                         <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="label" xsi:type="string" translate="true">content</item>
                 </item>
             </argument>
         </column>
+        <!--post content column-->
+        <!--post thumbnail column-->
+        <column name="thumbnail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">thumbnail</item>
+                </item>
+            </argument>
+        </column>
+        <!--post thumbnail column-->
+        <!--post status column-->
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Post\MassAction</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">status</item>
+                </item>
+            </argument>
+        </column>
+        <!--post status column-->
+        <!--post url key column-->
         <column name="url_key">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -133,51 +218,35 @@
                 </item>
             </argument>
         </column>
-        <column name="post_content">
+        <!--post url key column-->
+        <!--post tag column-->
+        <column name="tag_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
                     <item name="editor" xsi:type="array">
                         <item name="editorType" xsi:type="string">text</item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">post_content</item>
+                    <item name="label" xsi:type="string" translate="true">Tag</item>
                 </item>
             </argument>
         </column>
-        <column name="tag">
+        <!--post tag column-->
+        <!--post category column-->
+        <column name="category_set_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
                     <item name="editor" xsi:type="array">
                         <item name="editorType" xsi:type="string">text</item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">tag</item>
+                    <item name="label" xsi:type="string" translate="true">Category</item>
                 </item>
             </argument>
         </column>
-        <column name="status">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">status</item>
-                </item>
-            </argument>
-        </column>
-        <column name="featured_image">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">feature_image</item>
-                </item>
-            </argument>
-        </column>
-        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+        <!--post category column-->
+        <!--post date column-->
+        <column name="publish_data_from" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -187,15 +256,7 @@
                 </item>
             </argument>
         </column>
-        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">dateRange</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
-                    <item name="dataType" xsi:type="string">date</item>
-                    <item name="label" xsi:type="string" translate="true">Modified</item>
-                </item>
-            </argument>
-        </column>
+        <!--post date column-->
     </columns>
+    <!-- list column-->
 </listing>
