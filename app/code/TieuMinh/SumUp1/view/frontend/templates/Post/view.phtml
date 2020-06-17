@@ -1,13 +1,31 @@
-<?php
-/**
- * @var \TieuMinh\SumUp1\Block\Post\View $block
+<?php /**
+ * @var \TieuMinh\SumUp1\Block\Post\View $block;
+ * $
  */
 $data = $block->action();
-?>
-<div>
-<?php foreach ($data as $item): ?>
-<div>
-<p><?=$item?></p>
-</div>
-<?php endforeach; ?>
-</div>
+if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
+<?php $gridrecords = $block->getCustomCollection();var_dump($gridrecords->getSelect()->__toString()); ?>
+<?php if ($gridrecords && count($gridrecords)): ?>
+    <div>
+        <div class="content">
+            <?php foreach ($gridrecords->getData() as $item): ?>
+                <div>
+                    <h2><?=$item['title']?></h2>
+                    <img src="<?= $item['thumbnail'] ?>" alt="image" id="imgcnt">
+
+                    <p><?=$item['short_description']?>
+                        <a href="#"><u><i>Read more...</i></u></a></p>
+                </div>
+
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('No any record.'); ?></span></div>
+<?php endif ?>

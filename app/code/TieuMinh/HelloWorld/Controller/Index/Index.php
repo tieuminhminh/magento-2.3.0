@@ -19,10 +19,10 @@ class Index extends Action
         Context $context,
         PageFactory $pageFactory,
         ProductFactory $product,
-        PostFactory $postFactory
+        PostFactory $postCollectionFactory
     ) {
         $this->_pageFactory = $pageFactory;
-        $this->_postFactory = $postFactory;
+        $this->_postFactory = $postCollectionFactory;
         $this->product = $product;
         return parent::__construct($context);
     }

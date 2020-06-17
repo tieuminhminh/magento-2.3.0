@@ -1,0 +1,56 @@
+<?php
+/**
+ * @var \TieuMinh\SumUp1\Block\Post\View $block
+ */
+$data = $block->action();
+?>
+<style>
+    * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    body {
+        font-family: Helvetica,Arial,sans-serif;
+        font-size: 16px;
+        line-height: 1.254em;
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        text-decoration: none;
+        color: #3B8BBA;
+    }
+    a:hover,
+    a:visited {
+        color:#0A246A;
+    }
+    #container {
+        float: left;
+        position: relative;
+        left: 0;
+        width: 100%;
+    }
+    #imgcnt {
+        height: 300px;
+        width: 500px;
+        margin-right: 1em;
+    }
+    h2 {
+        color: #333;
+    }
+</style>
+<div>
+    <div class="content">
+            <?php foreach ($data as $item): ?>
+<div>
+            <h2><?=$item['title']?></h2>
+                <img src="<?= $item['thumbnail'] ?>" alt="image" id="imgcnt">
+
+                <p><?=$item['short_description']?>
+                    <a href="#"><u><i>Read more...</i></u></a></p>
+    </div>
+
+            <?php endforeach; ?>
+    </div>
+</div>

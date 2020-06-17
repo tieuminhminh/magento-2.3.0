@@ -1,34 +1,51 @@
 <?php
 namespace TieuMinh\SumUp1\Controller\Post;
 
-use Magento\Backend\Model\View\Result\Page;
+use Magento\Catalog\Model\ProductFactory;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Exception\NotFoundException;
-use Magento\Framework\Registry;
-use Magento\Store\Model\StoreManagerInterface;
-use TieuMinh\SumUp1\Controller\Post;
-use TieuMinh\SumUp1\Model\PostFactory;
+use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\View\Result\PageFactory;
+use TieuMinh\SumUp1\Model\ResourceModel\Post\CollectionFactory;
 
-class View extends Post
+class View extends Action
 {
+    protected $_pageFactory;
+
+    protected $_postFactory;
+    /** @var  Collection */
+
+    protected $productCollection;
+    /** @var  \TieuMinh\SumUp1\Block\Post\View */
+    protected $collection;
+    private $product;
+    /**
+     * @var ObjectManagerInterface
+     */
+    private $objectManager;
+
+    public function __construct(
+        Context $context,
+        PageFactory $pageFactory,
+        CollectionFactory $postCollectionFactory,
+        ObjectManagerInterface  $objectManager,
+        Collection $productCollection,
+        \TieuMinh\SumUp1\Block\Post\View $collection
+    ) {
+        $this->_pageFactory = $pageFactory;
+        $this->_postFactory = $postCollectionFactory;
+        $this->_objectManager = $objectManager;
+        $this->productCollection = $productCollection;
+        $this->collection = $collection;
+
+        return parent::__construct($context);
+    }
+
     public function execute()
     {
-        $post = $this->initModel();
-
-        if (!$post) {
-            throw new NotFoundException(__('Page not found'));
-            die;
-        }
-
-        /* @var Page $resultPage */
-        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-
-        $this->_eventManager->dispatch(
-            'blog_page_render',
-            ['post' => $post, 'controller_action' => $this]
-        );
+        $resultPage = $this->_pageFactory->create();
+        $resultPage->getConfig()->getTitle()->set(__('Custom Pagination'));
         return $resultPage;
     }
 }
