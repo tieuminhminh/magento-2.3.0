@@ -257,6 +257,13 @@
             </argument>
         </column>
         <!--post date column-->
+        <actionsColumn name="actions" class="TieuMinh\SumUp1\Ui\Component\Listing\Page\PageActions">
+            <settings>
+                <indexField>post_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
     </columns>
     <!-- list column-->
 </listing>

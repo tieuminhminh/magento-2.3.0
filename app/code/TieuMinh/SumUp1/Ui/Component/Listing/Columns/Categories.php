@@ -9,16 +9,8 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Categories extends \Magento\Ui\Component\Listing\Columns\Column
 {
-    /**
-     * Column name
-     */
-    const NAME = 'category_id';
 
-    /**
-     * Data for concatenated website names value.
-     */
-    private $categoryNames = 'category_names';
-
+    private $array = [];
     /**
      * Store manager
      *
@@ -51,6 +43,7 @@ class Categories extends \Magento\Ui\Component\Listing\Columns\Column
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $this->storeManager = $storeManager;
         $this->resourceHelper = $resourceHelper ?: $objectManager->get(Helper::class);
+        $this->data = $data;
     }
 
     /**
@@ -60,11 +53,21 @@ class Categories extends \Magento\Ui\Component\Listing\Columns\Column
      */
     public function prepareDataSource(array $dataSource)
     {
-        if (!empty($dataSource)) {
-            foreach ($dataSource['data']['items'] as  $item) {
-                $item['tag_id']= implode(', ', $item['tag_id']);
+        $resource = $dataSource["data"]["items"];
+        $this->categoryTree($resource);
+        $dataSource["data"]["items"] = $this->array;
+
+        return $dataSource;
+    }
+    public function categoryTree($categories, $parent_id = 0, $char = '')
+    {
+        foreach ($categories as $key => &$item) {
+            if ($item['parent_id'] == $parent_id) {
+                $item["name"] = $char . $item["name"];
+                $this->array[] = $item;
+                unset($categories[$key]);
+                $this->categoryTree($categories, $item['category_id'], $char . '-------|  ');
             }
         }
-        return $dataSource;
     }
 }

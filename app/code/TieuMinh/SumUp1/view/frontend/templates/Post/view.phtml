@@ -1,0 +1,13 @@
+<?php
+/**
+ * @var \TieuMinh\SumUp1\Block\Post\View $block
+ */
+$data = $block->action();
+?>
+<div>
+<?php foreach ($data as $item): ?>
+<div>
+<p><?=$item?></p>
+</div>
+<?php endforeach; ?>
+</div>

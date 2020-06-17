@@ -1,69 +1,69 @@
 <?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
 namespace TieuMinh\SumUp1\Model\Option;
 
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Framework\View\Model\PageLayout\Config\BuilderInterface;
 
 /**
- * Options tree for "Categories" field
+ * Class PageLayout
  */
 class Category implements OptionSourceInterface
 {
-    protected $categoryCollectionFactory;
-
     /**
-     * @var RequestInterface
+     * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
      */
-    protected $request;
-
+    protected $pageLayoutBuilder;
+    /**
+     * @var \TieuMinh\SumUp1\Model\CategoryFactory $category
+     */
+    protected $category;
     /**
      * @var array
      */
-    protected $categoryTree;
+    protected $options;
 
     /**
-     * @param \TieuMinh\SumUp1\Model\ResourceModel\CategoryFactory $categoryFactory
-     * @param RequestInterface $request
+     * Constructor
+     *
+     * @param BuilderInterface $pageLayoutBuilder
+     * @param \TieuMinh\SumUp1\Model\CategoryFactory $category
      */
-    public function __construct(
-        \TieuMinh\SumUp1\Model\ResourceModel\CategoryFactory $categoryFactory,
-        RequestInterface $request
-    ) {
-        $this->categoryCollectionFactory = $categoryFactory;
-        $this->request = $request;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toOptionArray()
+    public function __construct(BuilderInterface $pageLayoutBuilder, $category)
     {
-        return $this->getCategoryTree();
+        $this->pageLayoutBuilder = $pageLayoutBuilder;
+        $this->category = $category;
     }
 
     /**
-     * Retrieve categories tree
+     * Get options
      *
      * @return array
      */
-    protected function getCategoryTree()
+    public function toOptionArray()
     {
-        if ($this->categoryTree === null) {
-            $collection = $this->categoryCollectionFactory->create();
-
-            $collection->addNameToSelect();
-
-            foreach ($collection as $category) {
-                $categoryId = $category->getEntityId();
-                if (!isset($categoryById[$categoryId])) {
-                    $categoryById[$categoryId] = [
-                        'value' => $categoryId
-                    ];
-                }
-                $categoryById[$categoryId]['label'] = $category->getName();
-            }
-            $this->categoryTree = $categoryById;
+        if ($this->options !== null) {
+            return $this->options;
         }
-        return $this->categoryTree;
+
+        $options = [
+         ];
+        $configOptions = [
+            '1' => 'cate1',
+            '2' => 'cate2',
+            '3' => 'cate3',
+            ];
+        foreach ($configOptions as $key => $value) {
+            $options[] = [
+                     'label' => $value,
+                     'value' => $key,
+                 ];
+        }
+        $this->options = $options;
+
+        return $this->options;
     }
 }

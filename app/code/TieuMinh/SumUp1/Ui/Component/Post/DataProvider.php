@@ -1,14 +1,17 @@
 <?php
 
-namespace TieuMinh\SumUp1\Ui\Component;
+namespace TieuMinh\SumUp1\Ui\Component\Post;
 
 use Magento\Authorization\Model\ResourceModel\Role\CollectionFactory;
+
 /**
  * Class DataProvider
  * @package TieuMinh\SumUp1\Ui\Component
  */
-class FormDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
+class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
+
+    protected $loadedData;
     /**
      * DataProvider constructor.
      * @param string $name
@@ -27,13 +30,22 @@ class FormDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $name,
         $primaryFieldName,
         $requestFieldName,
-        \TieuMinh\SumUp1\Model\ResourceModel\Form\CollectionFactory $collectionFactory,
+        \TieuMinh\SumUp1\Model\ResourceModel\Post\CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = []
     ) {
         $this->collection = $collectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
-
-
+    public function getData()
+    {
+        if (isset($this->loadedData)) {
+            return $this->loadedData;
+        }
+        $items = $this->collection->getItems();
+        foreach ($items as $item) {
+            $this->loadedData[$item->getId()] = $item->getData();
+        }
+        return $this->loadedData;
+    }
 }
