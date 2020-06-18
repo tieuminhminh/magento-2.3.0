@@ -7,4 +7,10 @@ class Category extends \Magento\Framework\Model\AbstractModel
     {
         $this->_init('TieuMinh\SumUp1\Model\ResourceModel\Category');
     }
+
+    public function getCategoryName()
+    {
+        $result =  $this->getData('name');
+        return $result;
+    }
 }

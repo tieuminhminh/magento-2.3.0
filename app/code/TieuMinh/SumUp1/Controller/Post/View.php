@@ -45,7 +45,7 @@ class View extends Action
     public function execute()
     {
         $resultPage = $this->_pageFactory->create();
-        $resultPage->getConfig()->getTitle()->set(__('Custom Pagination'));
+        $resultPage->getConfig()->getTitle()->set(__('List Blog'));
         return $resultPage;
     }
 }

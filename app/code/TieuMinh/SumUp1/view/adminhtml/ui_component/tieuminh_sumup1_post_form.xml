@@ -162,26 +162,26 @@
         </field>
         <!--tag field end-->
         <!--category field start-->
-<!--        <field name="category_id">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Listing\Columns\Categories</item>-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="label" xsi:type="string" translate="true">Category</item>-->
-<!--                    <item name="formElement" xsi:type="string">select</item>-->
-<!--                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>-->
-<!--                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>-->
-<!--                    <item name="filterOptions" xsi:type="boolean">true</item>-->
-<!--                    <item name="chipsEnabled" xsi:type="boolean">true</item>-->
-<!--                    <item name="showCheckbox" xsi:type="boolean">true</item>-->
-<!--                    <item name="disableLabel" xsi:type="boolean">true</item>-->
-<!--                    <item name="multiple" xsi:type="boolean">true</item>-->
-<!--                    <item name="levelsVisibility" xsi:type="number">2</item>-->
-<!--                    <item name="validation" xsi:type="array">-->
-<!--                        <item name="required-entry" xsi:type="boolean">true</item>-->
-<!--                    </item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--        </field>-->
+        <field name="category_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Form\Category</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Category</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="chipsEnabled" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="number">2</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
         <!--category field end-->
     </fieldset>
     <!--genera fieldset end-->
@@ -195,59 +195,21 @@
                 <item name="area" xsi:type="string">main</item>
             </item>
         </argument>
-        <field name="image" formElement="fileUploader">
-          <argument name="data" xsi:type="array">
-              <item name="config" xsi:type="array"/>
-                  <item name="dataType" xsi:type="string">string</item>
-                  <item name="source" xsi:type="string">banner</item>
-                  <item name="formElement" xsi:type="string">fileUploader</item>
-                  <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
-                  <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
-
-                  <item name="uploaderConfig" xsi:type="array">
-                      <item name="url" xsi:type="url" path="tieuminh_sumup1/banner/upload/">
-                  </item>
-              </item>
-          </argument>
-            <settings>
-                <label translate="true">Image</label>
-            </settings>
-        </field>
-        <field name="watermark_image_imageOpacity" formElement="input">
-            <settings>
-                <validation>
-                    <rule name="validate-number" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>text</dataType>
-                <addAfter>%</addAfter>
-                <label translate="true">Image Opacity</label>
-                <dataScope>watermark_image_imageOpacity</dataScope>
-            </settings>
-        </field>
-        <field name="watermark_image_size" component="Magento_Catalog/component/image-size-field" formElement="input">
-            <settings>
-                <notice translate="true">Example format: 200x300.</notice>
-                <validation>
-                    <rule name="validate-image-size-range" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>text</dataType>
-                <label translate="true">Image Size</label>
-                <dataScope>watermark_image_size</dataScope>
-            </settings>
-        </field>
-        <field name="watermark_image_position" formElement="select">
-            <settings>
-                <dataType>text</dataType>
-                <label translate="true">Image Position</label>
-                <dataScope>watermark_image_position</dataScope>
-            </settings>
-            <formElements>
-                <select>
-                    <settings>
-                        <options class="Magento\Catalog\Model\Config\Source\Watermark\Position"/>
-                    </settings>
-                </select>
-            </formElements>
+        <field name="thumbnail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">template</item>
+                    <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="notice" xsi:type="string" translate="true">Allowed file types: jpeg, gif, png.</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="string">sumup1/post/FileUpload</item>
+                    </item>
+                    <item name="required" xsi:type="boolean">false</item>
+                </item>
+            </argument>
         </field>
     </fieldset>
     <!-- image fieldset end-->

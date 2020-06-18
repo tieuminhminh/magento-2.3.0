@@ -6,15 +6,8 @@ use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
-class Categories extends Column
+class Tags extends Column
 {
-    /**
-     * Category constructor.
-     * @param ContextInterface $context
-     * @param UiComponentFactory $uiComponentFactory
-     * @param array $components
-     * @param array $data
-     */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
@@ -31,9 +24,8 @@ class Categories extends Column
     public function prepareDataSource(array $dataSource)
     {
         foreach ($dataSource["data"]["items"] as &$item) {
-            $item["category"] = implode(",", $item["name"]);
+            $item["tag"] = implode(", ", $item["tag_name"]);
         }
-        var_dump($dataSource['data']['items']);
         return $dataSource;
     }
 }

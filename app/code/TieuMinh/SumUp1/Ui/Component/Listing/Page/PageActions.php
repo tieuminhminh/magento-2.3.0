@@ -18,7 +18,7 @@ class PageActions extends Column
 {
     /** Url path */
     const POST_URL_PATH_EDIT = 'sumup1/post/edit';
-  //  const POST_URL_PATH_EDIT = 'cms/page/edit';
+    //  const POST_URL_PATH_EDIT = 'cms/page/edit';
     const POST_URL_PATH_DELETE = 'cms/page/delete';
 
     /**

@@ -32,6 +32,7 @@ class Save extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $data =  $this->getRequest()->getParams();
+        var_dump($data);die("post");
         $category = $this->category->create();
 
         $form = $this->form->create();

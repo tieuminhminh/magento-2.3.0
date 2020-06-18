@@ -7,4 +7,10 @@ class Post extends \Magento\Framework\Model\AbstractModel
     {
         $this->_init('TieuMinh\SumUp1\Model\ResourceModel\Post');
     }
+
+    public function getPostCate()
+    {
+        $id = $this->getId();
+
+    }
 }

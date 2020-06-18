@@ -4,7 +4,6 @@ namespace TieuMinh\SumUp1\Model\ResourceModel\Post;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
-
     protected $_idFieldName = 'post_id';
 //    protected $_eventPrefix = 'mageplaza_helloworld_post_collection';
 //    protected $_eventObject = 'post_collection';
@@ -13,20 +12,17 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      *
      * @return void
      */
-    protected function _construct(
-    ) {
+    protected function _construct()
+    {
         $this->_init('TieuMinh\SumUp1\Model\Post', 'TieuMinh\SumUp1\Model\ResourceModel\Post');
-
     }
-    /**
+
     protected function _initSelect()
     {
         parent::_initSelect();
         $this->fetchTag();
         $this->fetchCategory();
-
     }
-     * */
 
     public function fetchCategory()
     {
@@ -63,6 +59,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         }
         return $this;
     }
+
     public function fetchTag()
     {
         $postTags = [];
@@ -96,5 +93,41 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             }
         }
         return $this;
+    }
+
+    public function cateName($id)
+    {
+        $select = $this->getConnection()->select()->from(
+            ['tpc' => "tieuminh_post_category"]
+        )->join(
+            ['tcs' => $this->getResource()->getTable('tieuminh_category_set')],
+            'tpc.category_set_id = tcs.category_id',
+            ['name']
+        )->where(
+            'tpc.post_id IN (?)',
+            $id
+        );
+
+        $data = $this->getConnection()->fetchAll($select);
+        if (!empty($data[0]['name']))
+            return $data[0]['name'];
+        return "";
+    }
+
+    public function tagName($id)
+    {
+        $select = $this->getConnection()->select()->from(
+            ['tpt' => "tieuminh_post_tag"]
+        )->join(
+            ['tts' => $this->getResource()->getTable('tieuminh_tag_set')],
+            'tts.tag_id = tpt.tag_id',
+            ['tts.name']
+        )->where(
+            'tpt.post_id IN (?)',
+            $id
+        );
+
+        $data = $this->getConnection()->fetchAll($select);
+        return $data;
     }
 }

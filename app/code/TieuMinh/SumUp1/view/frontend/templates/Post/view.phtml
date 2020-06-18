@@ -1,25 +1,42 @@
 <?php /**
- * @var \TieuMinh\SumUp1\Block\Post\View $block;
- * $
+ * @var \TieuMinh\SumUp1\Block\Post\View $block ;
+ *
  */
-$data = $block->action();
 if ($block->getPagerHtml()): ?>
-    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <div>
+        <form method="get" action="<?= $block->getSearchUrl(); ?>">
+            <input type="search" name="q" placeholder="<?= __('Search...') ?>"/>
+            <button title="Submit" type="submit" style="margin: 20px;">Search
+            </button>
+        </form>
+    </div>
+    <div><?php echo $block->getPagerHtml(); ?></div>
 <?php endif ?>
-<?php $gridrecords = $block->getCustomCollection();var_dump($gridrecords->getSelect()->__toString()); ?>
+
+<?php $gridrecords = $block->getCustomCollection(); ?>
 <?php if ($gridrecords && count($gridrecords)): ?>
     <div>
         <div class="content">
-            <?php foreach ($gridrecords->getData() as $item): ?>
-                <div>
-                    <h2><?=$item['title']?></h2>
-                    <img src="<?= $item['thumbnail'] ?>" alt="image" id="imgcnt">
-
-                    <p><?=$item['short_description']?>
+            <?php if (!empty($gridrecords->getData())): ?>
+                <?php foreach ($gridrecords->getData() as $item): ?>
+                    <div>
+                        <h2><?= $item['title'] ?></h2>
+                        <img src="<?= $item['thumbnail'] ?>" alt="image" id="imgcnt">
+                        <p><?= $item['short_description'] ?>
+                        <p><b>Category:<?= $gridrecords->cateName($item['post_id']) ?></b></p>
+                        <p>
+                            <?php if (!empty($gridrecords->tagName($item['post_id']))): ?>
+                                <?php foreach ($gridrecords->tagName($item['post_id']) as $value): ?>
+                                    <b><?= $value['name'] ?></b>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </p>
                         <a href="#"><u><i>Read more...</i></u></a></p>
-                </div>
 
-            <?php endforeach; ?>
+                    </div>
+
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 
