@@ -264,7 +264,7 @@
         </column>
         <!--post category column-->
         <!--pushlish date from column-->
-        <column name="publish_data_from" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="publish_date_from">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -276,7 +276,7 @@
         </column>
         <!--pushlish date from column-->
         <!--pushlish date to column-->
-        <column name="publish_data_to" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="publish_date_to">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>

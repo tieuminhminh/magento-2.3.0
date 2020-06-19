@@ -59,6 +59,21 @@
                 <item name="area" xsi:type="string">main</item>
             </item>
         </argument>
+        <!--post id field start-->
+        <field name="post_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">id</label>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <!--post id field end-->
         <!--title field start-->
         <field name="title">
             <argument name="data" xsi:type="array">
@@ -108,7 +123,7 @@
         </field>
         <!--url key field end-->
         <!--tag field start-->
-        <field name="tag">
+        <field name="tag_id">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Form\Tag</item>
                 <item name="config" xsi:type="array">

@@ -15,6 +15,7 @@ class Save extends \Magento\Framework\App\Action\Action
      * @var \TieuMinh\SumUp1\Model\ResourceModel\Tag\CollectionFactory
      */
     private $tagFactory;
+    private $_relatedProduct;
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -23,7 +24,8 @@ class Save extends \Magento\Framework\App\Action\Action
         \TieuMinh\SumUp1\Model\PostCategoryFactory $post_Collection_category,
         \TieuMinh\SumUp1\Model\PostFactory $post,
         \TieuMinh\SumUp1\Model\FormFactory $form,
-        \TieuMinh\SumUp1\Model\ResourceModel\Tag\CollectionFactory $tagFactory
+        \TieuMinh\SumUp1\Model\ResourceModel\Tag\CollectionFactory $tagFactory,
+    \TieuMinh\SumUp1\Model\RelatedProductFactory $_relatedProduct
     ) {
         $this->_pageFactory = $pageFactory;
         $this->category = $category;
@@ -31,58 +33,61 @@ class Save extends \Magento\Framework\App\Action\Action
         $this->post = $post;
         $this->form = $form;
         $this->tagFactory = $tagFactory;
+        $this->_relatedProduct = $_relatedProduct;
         return parent::__construct($context);
     }
 
     public function execute()
     {
         $postId = "";
-        $data = $this->processParams();
+        $a = $this->getRequest()->getParams();
+        $data = $this->handleData();
         $postModel = $this->post->create();
         $postCollection = $postModel->getCollection();
-        $postCollection->addFieldToFilter("post_title", ["like" => "%{$data["post"]["post_title"]}%"]);
+        $postCollection->addFieldToFilter("title", ["like" => "%{$data["post"]["title"]}%"]);
         $postSize = $postCollection->getSize();
 
-        if ($postSize > 0 && !isset($data["post"]["post_id"])) {
-            $this->messageManager->addErrorMessage(__('Your post name has been existed'));
+        if ($postSize > 0 || !isset($data["post"]["title"])) {
+            $this->messageManager->addErrorMessage(__('Your Post name has been existed !!!'));
             return $this->_redirect($this->getUrl("*/*/"));
         } else {
             if (isset($data)) {
                 $postModel->addData($data["post"]);
                 $postId = $postModel->save()->getId();
-
-                if (!empty($data["tag"])) {
-                    if ($this->tagFactory->create()->fetchAllTag($postId) > 0) {
-                        $postModel->getResource()->deletePostTag($postId);
+                if (!empty($postId)) {
+                    if (!empty($data['tag'])) {
+                        if ($postModel->getResource()->getConnect()->fetchAll("SELECT COUNT(*) FROM tieuminh_post_tag WHERE post_id = '{$postId}'") > 0) {
+                            $postModel->getResource()->deletePostTag($postId);
+                        }
+                        foreach ($data["tag"] as $item) {
+                            $postModel->getResource()->savePostTag($item, $postId);
+                        }
                     }
-                    foreach ($data["tag"] as $item) {
-                        $postModel->getResource()->savePostTag($item, $postId);
+                    if (!empty($data["category"])) {
+                        if ($postModel->getResource()->getConnect()->fetchAll("SELECT COUNT(*) FROM tieuminh_post_category WHERE post_id = '{$postId}'") > 0) {
+                            $postModel->getResource()->deletePostCategory($postId);
+                        }
+                        foreach ($data["category"] as $item) {
+                            $postModel->getResource()->savePostCategory($item, $postId);
+                        }
                     }
+                    if (!empty($data["relatedProduct"])) {
+                        foreach ($data["relatedProduct"] as $item) {
+                            $item["post_id"] = $postId;
+                            $this->_relatedProduct->create()->addData($item)->save();
+                        }
+                    }
+                    $this->messageManager->addSuccessMessage(__('Record have been Saved.'));
                 }
-                if (!empty($data["category"])) {
-                    if ($postModel->getResource()->getConnect()->fetchAll("SELECT COUNT(*) FROM post_tag WHERE post_id = '{$postId}'") > 0) {
-                        $postModel->getResource()->deletePostCategory($postId);
-                    }
-                    foreach ($data["category"] as $item) {
-                        $postModel->getResource()->savePostCateogry($item, $postId);
-                    }
-                }
-                if (!empty($data["relatedProduct"])) {
-                    foreach ($data["relatedProduct"] as $item) {
-                        $item["post_id"] = $postId;
-                        $this->_relatedProduct->create()->addData($item)->save();
-                    }
-                }
-                $this->messageManager->addSuccessMessage(__('Record have been Saved.'));
-                return $this->_redirect($this->getUrl("*/*/"));
             }
         }
+        return $this->_redirect($this->getUrl("sumup1/post/listing"));
     }
 
     /**
      * @return array
      */
-    protected function processParams()
+    protected function handleData()
     {
         $result = [];
         $relatedProduct = [];
