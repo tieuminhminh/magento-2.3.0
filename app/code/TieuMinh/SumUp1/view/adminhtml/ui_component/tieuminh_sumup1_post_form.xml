@@ -22,11 +22,11 @@
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
         <item name="buttons" xsi:type="array">
-          <!--  <item name="back" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\BackButton</item>
-            <item name="delete" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\DeleteButton</item>
-            <item name="reset" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\ResetButton</item>-->
+            <!--  <item name="back" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\BackButton</item>
+              <item name="delete" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\DeleteButton</item>
+              <item name="reset" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\ResetButton</item>-->
             <item name="save" xsi:type="string">TieuMinh\SumUp1\Block\Adminhtml\Button\Post\SaveButton</item>
-        <!--    <item name="save_and_continue" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\SaveAndContinueButton</item>-->
+            <!--    <item name="save_and_continue" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\SaveAndContinueButton</item>-->
         </item>
     </argument>
     <!-- Config and button end-->
@@ -70,53 +70,10 @@
             </argument>
         </field>
         <!--title field end-->
-
-        <!--short_description field start-->
-        <field name="short_description">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Short Description</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="cols" xsi:type="number">15</item>
-                    <item name="rows" xsi:type="number">5</item>
-                    <item name="dataType" translate="true" xsi:type="string">text</item>
-                </item>
-            </argument>
-        </field>
-        <!--short_description field end-->
-
-        <!--Content field start-->
-        <field name="description" template="ui/form/field" sortOrder="50" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="height" xsi:type="string">100px</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">true</item>
-                        <item name="add_directives" xsi:type="boolean">true</item>
-                    </item>
-<!--                    <item name="source" xsi:type="string">category</item>-->
-                </item>
-            </argument>
-            <settings>
-                <label translate="true">Content</label>
-                <dataScope>content</dataScope>
-            </settings>
-            <formElements>
-                <wysiwyg class="Magento\Catalog\Ui\Component\Category\Form\Element\Wysiwyg">
-                    <settings>
-                        <rows>8</rows>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <!--Content field end-->
-
         <!--status field start-->
         <field name="status" formElement="checkbox">
             <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Listing\Columns\Status</item>
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Save</item>
                 </item>
@@ -153,10 +110,21 @@
         <!--tag field start-->
         <field name="tag">
             <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Form\Tag</item>
                 <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Tag</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">Tags</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="chipsEnabled" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="number">2</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -183,6 +151,82 @@
             </argument>
         </field>
         <!--category field end-->
+        <!--publish date field-->
+        <field name="Publish_date_from" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="options" xsi:type="array">
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="source" xsi:type="string">Publish_date_from</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>timestamp</dataType>
+                <label translate="true">Publish Date From</label>
+                <visible>true</visible>
+                <dataScope>publish_date_from</dataScope>
+            </settings>
+        </field>
+
+        <field name="publish_date_to" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="options" xsi:type="array">
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="source" xsi:type="string">publish_date_to</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>timestamp</dataType>
+                <label translate="true">Publish Date To</label>
+                <visible>true</visible>
+                <dataScope>publish_date_to</dataScope>
+            </settings>
+        </field>
+        <!--publish date field-->
+        <!--short_description field start-->
+        <field name="short_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Short Description</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="cols" xsi:type="number">15</item>
+                    <item name="rows" xsi:type="number">5</item>
+                    <item name="dataType" translate="true" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <!--short_description field end-->
+
+        <!--Content field start-->
+        <field name="description" template="ui/form/field" sortOrder="50" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="height" xsi:type="string">100px</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">true</item>
+                        <item name="add_directives" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Content</label>
+                <dataScope>content</dataScope>
+            </settings>
+            <formElements>
+                <wysiwyg class="Magento\Catalog\Ui\Component\Category\Form\Element\Wysiwyg">
+                    <settings>
+                        <rows>8</rows>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        <!--Content field end-->
     </fieldset>
     <!--genera fieldset end-->
     <!-- image fieldset start-->
@@ -199,19 +243,246 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">string</item>
-                    <item name="source" xsi:type="string">template</item>
-                    <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="label" xsi:type="string" translate="true">Upload Thumbnail</item>
+                    <item name="visible" xsi:type="boolean">true</item>
                     <item name="formElement" xsi:type="string">fileUploader</item>
                     <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
-                    <item name="notice" xsi:type="string" translate="true">Allowed file types: jpeg, gif, png.</item>
+                    <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
                     <item name="uploaderConfig" xsi:type="array">
-                        <item name="url" xsi:type="string">sumup1/post/FileUpload</item>
+                        <item name="url" xsi:type="url" path="sumup1/post/fileupload"/>
                     </item>
-                    <item name="required" xsi:type="boolean">false</item>
                 </item>
             </argument>
         </field>
     </fieldset>
     <!-- image fieldset end-->
+    <!-- gallery field -->
+    <fieldset name="gallery">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Image Gallery</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+
+    </fieldset>
+    <!-- gallery field-->
+    <!-- related product-->
+    <fieldset name="related_product">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Add Related Products</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+
+        <container name="button_set">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="boolean">false</item>
+                    <item name="content" xsi:type="string" translate="true">Related products are shown to customers in addition to the blog post the customer is looking at.</item>
+                    <item name="template" xsi:type="string">ui/form/components/complex</item>
+                </item>
+            </argument>
+
+            <container name="button_product">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Add Products</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">tieuminh_sumup1_post_form.tieuminh_sumup1_post_form.related_product.modal</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">tieuminh_sumup1_post_form.tieuminh_sumup1_post_form.related_product.modal.tieuminh_sumup1_relatedproduct_listing</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                        <item name="provider" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+
+        <modal name="modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                    <item name="options" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Add Related Products</item>
+                        <item name="buttons" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="string">closeModal</item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="text" xsi:type="string" translate="true">Add Selected Products</item>
+                                <item name="class" xsi:type="string">action-primary</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">index=tieuminh_sumup1_relatedproduct_listing</item>
+                                        <item name="actionName" xsi:type="string">save</item>
+                                    </item>
+                                    <item name="1" xsi:type="string">closeModal</item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <insertListing name="tieuminh_sumup1_relatedproduct_listing">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="autoRender" xsi:type="boolean">false</item>
+                        <item name="dataScope" xsi:type="string">tieuminh_sumup1_relatedproduct_listing</item>
+                        <item name="externalProvider" xsi:type="string">tieuminh_sumup1_relatedproduct_listing.tieuminh_sumup1_relatedproduct_listing_data_source</item>
+                        <item name="selectionsProvider" xsi:type="string">tieuminh_sumup1_relatedproduct_listing.tieuminh_sumup1_relatedproduct_listing.columns.ids</item>
+                        <item name="ns" xsi:type="string">tieuminh_sumup1_relatedproduct_listing</item>
+                        <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                        <item name="dataLinks" xsi:type="array">
+                            <item name="imports" xsi:type="boolean">false</item>
+                            <item name="exports" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="behaviourType" xsi:type="string">simple</item>
+                        <item name="externalFilterMode" xsi:type="boolean">true</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="entity_id" xsi:type="string">${ $.provider }:data.entity_id</item>
+                        </item>
+                        <item name="exports" xsi:type="array">
+                            <item name="entity_id" xsi:type="string">${ $.externalProvider }:data.entity_id</item>
+                        </item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                    </item>
+                </argument>
+            </insertListing>
+        </modal>
+
+        <dynamicRows name="related_product">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="columnsHeader" xsi:type="boolean">false</item>
+                    <item name="columnsHeaderAfterRender" xsi:type="boolean">true</item>
+                    <item name="renderDefaultRecord" xsi:type="boolean">false</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/grid</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows-grid</item>
+                    <item name="addButton" xsi:type="boolean">false</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="dataScope" xsi:type="string">links</item>
+                    <item name="deleteButtonLabel" xsi:type="string" translate="true">Remove</item>
+                    <item name="dataProvider" xsi:type="string">data.tieuminh_sumup1_relatedproduct_listing</item>
+                    <item name="map" xsi:type="array">
+                        <item name="id" xsi:type="string">entity_id</item>
+                        <item name="name" xsi:type="string">name</item>
+                        <item name="status" xsi:type="string">status_text</item>
+                        <item name="thumbnail" xsi:type="string">thumbnail_src</item>
+                        <!--                            add price-->
+                        <item name="price" xsi:type="string">price</item>
+                    </item>
+                    <item name="links" xsi:type="array">
+                        <item name="insertData" xsi:type="string">${ $.provider }:${ $.dataProvider }</item>
+                    </item>
+                </item>
+            </argument>
+
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="id">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">id</item>
+                            <item name="label" xsi:type="string" translate="true">ID</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="thumbnail">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/thumbnail</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">thumbnail</item>
+                            <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="name">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">name</item>
+                            <item name="label" xsi:type="string" translate="true">Name</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="status">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">status</item>
+                            <item name="label" xsi:type="string" translate="true">Status</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="price">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">price</item>
+                            <item name="label" xsi:type="string" translate="true">Price</item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="actionDelete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="actionDelete" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Actions</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+                <field name="position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataType" xsi:type="string">number</item>
+                            <item name="dataScope" xsi:type="string">position</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <!-- related product-->
     <!--main end-->
 </form>

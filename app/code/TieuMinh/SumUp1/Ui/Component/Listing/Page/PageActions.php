@@ -17,9 +17,8 @@ use Magento\Ui\Component\Listing\Columns\Column;
 class PageActions extends Column
 {
     /** Url path */
-    const POST_URL_PATH_EDIT = 'sumup1/post/edit';
-    //  const POST_URL_PATH_EDIT = 'cms/page/edit';
-    const POST_URL_PATH_DELETE = 'cms/page/delete';
+    const POST_URL_PATH_EDIT = 'sumup1/post/creating';
+    const POST_URL_PATH_DELETE = 'sumup1/post/delete';
 
     /**
      * @var \Magento\Cms\Block\Adminhtml\Page\Grid\Renderer\Action\UrlBuilder
@@ -36,32 +35,23 @@ class PageActions extends Column
      */
     private $editUrl;
 
-    /**
-     * @var Escaper
-     */
-    private $escaper;
+    private $_urlBuilder;
 
     /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
-     * @param UrlBuilder $actionUrlBuilder
      * @param UrlInterface $urlBuilder
      * @param array $components
      * @param array $data
-     * @param string $editUrl
      */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
-        UrlBuilder $actionUrlBuilder,
         UrlInterface $urlBuilder,
         array $components = [],
-        array $data = [],
-        $editUrl = self::POST_URL_PATH_EDIT
+        array $data = []
     ) {
-        $this->urlBuilder = $urlBuilder;
-        $this->actionUrlBuilder = $actionUrlBuilder;
-        $this->editUrl = $editUrl;
+        $this->_urlBuilder = $urlBuilder;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -71,15 +61,30 @@ class PageActions extends Column
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            $postId = $this->context->getFilterParam('post_id');
-            foreach ($dataSource['data']['items'] as &$item) {
-                $item[$this->getData('name')]['edit'] = [
-                    'href' => $this->urlBuilder->getUrl(
-                        'sumup1/post/edit',
-                        ['id' => $item['post_id'], 'store' => $postId]
-                    ),
-                    'label' => __('Edit'),
-                    'hidden' => false,
+            foreach ($dataSource['data']['items'] as & $item) {
+                $item[$this->getData('name')] = [
+                    'edit' => [
+                        'href' => $this->_urlBuilder->getUrl(
+                            static::POST_URL_PATH_EDIT,
+                            [
+                                'id' => $item['post_id']
+                            ]
+                        ),
+                        'label' => __('Edit')
+                    ],
+                    'delete' => [
+                        'href' => $this->_urlBuilder->getUrl(
+                            static::POST_URL_PATH_DELETE,
+                            [
+                                'id' => $item['post_id']
+                            ]
+                        ),
+                        'label' => __('Delete'),
+                        'confirm' => [
+                            'title' => __('Delete'),
+                            'message' => __('Are you sure you wan\'t to delete a record?'),
+                        ],
+                    ],
                 ];
             }
         }

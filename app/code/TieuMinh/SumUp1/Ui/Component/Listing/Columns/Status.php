@@ -14,11 +14,11 @@ class Status extends \Magento\Ui\Component\Listing\Columns\Column
     {
         return [
             [
-                'label' => "Disable",
+                'label' => "Draft",
                 'value' => 0,
             ],
             [
-                'label' => "Enable",
+                'label' => "Publish",
                 'value' => 1,
             ],
 

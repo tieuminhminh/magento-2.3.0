@@ -9,7 +9,7 @@ use Magento\Ui\Component\Listing\Columns\Column;
 class Thumbnail extends Column
 {
     const NAME = 'thumbnail';
-    const ALT_FIELD = 'name';
+    const ALT_FIELD = 'post thumbnail';
     const URL_PATH_EDIT = "post/post/edit/";
     /**
      * @var \Magento\Framework\UrlInterface

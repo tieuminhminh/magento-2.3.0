@@ -25,12 +25,12 @@
         <settings>
             <sticky>true</sticky>
         </settings>
-        <bookmark name="bookmarks"/>
-        <columnsControls name="columns_controls"/>
+<!--        <bookmark name="bookmarks"/>-->
+<!--        <columnsControls name="columns_controls"/>-->
 <!--           <filterSearch name="fulltext"/>-->
         <!--filter setting-->
         <filters name="listing_filters">
-            <settings>
+         <!--   <settings>
                 <templates>
                     <filters>
                         <select>
@@ -39,22 +39,12 @@
                         </select>
                     </filters>
                 </templates>
-            </settings>
-         <!--   <filterSelect name="store_id" provider="${ $.parentName }">
-                <settings>
-                    <captionValue>0</captionValue>
-                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
-                    <label translate="true">Store View</label>
-                    <dataScope>store_id</dataScope>
-                    <imports>
-                        <link name="visible">componentType = column, index = ${ $.index }:visible</link>
-                    </imports>
-                </settings>
-            </filterSelect>-->
+            </settings>-->
         </filters>
         <!--filter setting-->
         <!--massaction-->
-        <massaction name="listing_massaction">
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <!--delete action-->
             <action name="delete">
                 <settings>
                     <confirm>
@@ -66,35 +56,64 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
-            <action name="disable">
+            <!--delete action-->
+            <!--change status action-->
+            <action name="0">
                 <settings>
-                    <url path="sumup1/post/massDelete"/>
-                    <type>disable</type>
-                    <label translate="true">Disable</label>
-                </settings>
-            </action>
-            <action name="enable">
-                <settings>
-                    <url path="sumup1/post/massEnable"/>
+                    <url path="sumup1/post/poststatus">
+                        <param name="status">1</param>
+                    </url>
                     <type>enable</type>
                     <label translate="true">Enable</label>
                 </settings>
             </action>
-            <action name="edit">
+            <action name="1">
                 <settings>
-                    <callback>
-                        <target>editSelected</target>
-                        <provider>tieuminh_sumup1_post_listing.tieuminh_sumup1_post_listing.cms_page_columns_editor
-                        </provider>
-                    </callback>
-                    <type>edit</type>
-                    <type>edit</type>
-                    <label translate="true">Edit</label>
+                    <url path="sumup1/post/poststatus">
+                        <param name="status">0</param>
+                    </url>
+                    <type>disable</type>
+                    <label translate="true">Disable</label>
                 </settings>
             </action>
         </massaction>
         <!--massaction-->
-        <paging name="listing_paging"/>
+        <!--pagginng-->
+        <paging name="listing_paging">
+            <settings>
+                <options>
+                    <option name="5" xsi:type="array">
+                        <item name="value" xsi:type="number">5</item>
+                        <item name="label" xsi:type="string">5</item>
+                    </option>
+                    <option name="10" xsi:type="array">
+                        <item name="value" xsi:type="number">10</item>
+                        <item name="label" xsi:type="string">10</item>
+                    </option>
+                    <option name="20" xsi:type="array">
+                        <item name="value" xsi:type="number">20</item>
+                        <item name="label" xsi:type="string">20</item>
+                    </option>
+                </options>
+                <pageSize>5</pageSize>
+            </settings>
+        </paging>
+        <!--pagginng-->
+        <!--export csv-->
+        <exportButton class="Magento\Ui\Component\ExportButton">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="csv" xsi:type="array">
+                        <item name="value" xsi:type="string">csv</item>
+                        <item name="label" xsi:type="string" translate="true">CSV</item>
+                        <item name="url" xsi:type="string">sumup1/export/PostCsv</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        </exportButton>
+        <!--export csv-->
     </listingToolbar>
     <!--toolbar setting-->
     <!--datasource-->
@@ -122,9 +141,9 @@
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeEnabled" xsi:type="boolean">true</item>
                     <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">title</item>
+                    <item name="indexField" xsi:type="string">post_id</item>
                 </item>
             </argument>
         </selectionsColumn>
@@ -142,6 +161,17 @@
             </settings>
         </column>
         <!--post id column-->
+        <!--post thumbnail column-->
+        <column name="thumbnail" class="TieuMinh\SumUp1\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+            <settings>
+                <altField>post thumbnail</altField>
+                <hasPreview>1</hasPreview>
+                <addField>true</addField>
+                <label translate="true">Thumbnail</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <!--post thumbnail column-->
         <!--post title column-->
         <column name="title">
             <argument name="data" xsi:type="array">
@@ -177,23 +207,10 @@
             </argument>
         </column>
         <!--post content column-->
-        <!--post thumbnail column-->
-        <column name="thumbnail">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">thumbnail</item>
-                </item>
-            </argument>
-        </column>
-        <!--post thumbnail column-->
         <!--post status column-->
         <column name="status">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Post\MassAction</item>
+                <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Listing\Columns\Status</item>
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
                     <item name="editor" xsi:type="array">
@@ -246,18 +263,31 @@
             </argument>
         </column>
         <!--post category column-->
-        <!--post date column-->
+        <!--pushlish date from column-->
         <column name="publish_data_from" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
                     <item name="dataType" xsi:type="string">date</item>
-                    <item name="label" xsi:type="string" translate="true">Created</item>
+                    <item name="label" xsi:type="string" translate="true">Publish Date From</item>
                 </item>
             </argument>
         </column>
-        <!--post date column-->
+        <!--pushlish date from column-->
+        <!--pushlish date to column-->
+        <column name="publish_data_to" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Publish Date To</item>
+                </item>
+            </argument>
+        </column>
+        <!--pushlish date to column-->
+        <!--action column-->
         <actionsColumn name="actions" class="TieuMinh\SumUp1\Ui\Component\Listing\Page\PageActions">
             <settings>
                 <indexField>post_id</indexField>
@@ -265,6 +295,7 @@
                 <resizeDefaultWidth>107</resizeDefaultWidth>
             </settings>
         </actionsColumn>
+        <!--action column-->
     </columns>
     <!-- list column-->
 </listing>

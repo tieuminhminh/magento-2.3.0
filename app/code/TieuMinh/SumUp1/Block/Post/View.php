@@ -78,9 +78,6 @@ class View extends Template
         $searchblog = ($this->getRequest()->getParam('q')) ? $this->getRequest()->getParam('q') : "";
         if (!empty($searchblog)) {
             $collection->addFieldToFilter('title', ['like' => '%' . $searchblog . '%']);
-            /* $cur_date = date("Y-m-d");
-             $collection->addFieldToFilter('publish_date_from', ['lt' => $cur_date]);
-             $collection->addFieldToFilter('publish_date_to', ['gt' => $cur_date]);*/
         }
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
         $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 1;

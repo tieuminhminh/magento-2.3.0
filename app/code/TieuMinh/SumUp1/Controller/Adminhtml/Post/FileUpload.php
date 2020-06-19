@@ -2,39 +2,36 @@
 
 namespace TieuMinh\SumUp1\Controller\Adminhtml\Post;
 
-use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Registry;
-use TieuMinh\SumUp1\Controller\Adminhtml\PostRepositoryInterface;
-use TieuMinh\SumUp1\Controller\Adminhtml\Post;
-use TieuMinh\SumUp1\Model\Option\FileHandle;
 
-class FileUpload extends Post
+class FileUpload extends \Magento\Backend\App\Action
 {
-    /**
-     * @var FileHandle
-     */
-    private $FileHandle;
+    protected $imageUploader;
 
     public function __construct(
-        FileHandle $FileHandle,
-        PostRepositoryInterface $postRepository,
-        Registry $registry,
-        Context $context
+        \Magento\Backend\App\Action\Context $context,
+        \TieuMinh\SumUp1\Model\ResourceModel\Post\ImageUpload $imageUploader
     ) {
-        $this->FileHandle = $FileHandle;
-
-        parent::__construct($postRepository, $registry, $context);
+        parent::__construct($context);
+        $this->imageUploader = $imageUploader;
     }
 
-    /**
-     * {@inheritdoc}
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
     public function execute()
     {
-        $result = $this->FileHandle->save(key($_FILES));
+        $imageId = $this->_request->getParam('param_name', 'thumbnail');
+        try {
+            $result = $this->imageUploader->saveFileToTmpDir($imageId);
 
+            $result['cookie'] = [
+                'name' => $this->_getSession()->getName(),
+                'value' => $this->_getSession()->getSessionId(),
+                'lifetime' => $this->_getSession()->getCookieLifetime(),
+                'path' => $this->_getSession()->getCookiePath(),
+                'domain' => $this->_getSession()->getCookieDomain(),
+            ];
+        } catch (\Exception $e) {
+            $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
+        }
         return $this->resultFactory->create(ResultFactory::TYPE_JSON)->setData($result);
     }
 }

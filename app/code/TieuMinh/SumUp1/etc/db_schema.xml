@@ -64,4 +64,21 @@
     </table>
     <!--  post tag table-->
 
+    <!--  related product table-->
+    <table name="tieuminh_related_product">
+        <column xsi:type="int" name="related_id" padding="10" identity="true" unsigned="true" nullable="false" comment="related_id"/>
+        <column xsi:type="int" name="post_id" padding="25" unsigned="true" nullable="false" comment="Post ID" />
+        <column xsi:type="int" name="product_id" unsigned="true" comment="Product ID" />
+        <column xsi:type="varchar" length="255" name="name" comment="Product Name" />
+        <column xsi:type="text" name="status" comment="Product Status" />
+        <column xsi:type="text" name="thumbnail" comment="Product Thumbnail" />
+        <column xsi:type="text" name="position" comment="Product position" />
+        <column xsi:type="text" name="record_id" comment="Product record_id" />
+        <column xsi:type="text" name="price" comment="Product Price" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="related_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_RelatedProduct_Post" table="related_product" column="post_id" referenceTable="tieuminh_post_set" referenceColumn="post_id" onDelete="CASCADE"/>
+    </table>
+    <!--  related product table-->
 </schema>

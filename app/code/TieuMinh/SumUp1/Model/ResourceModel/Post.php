@@ -15,4 +15,22 @@ class Post extends AbstractDb
     {
         $this->_init('tieuminh_post_set', 'post_id');
     }
+    public function getConnect()
+    {
+        return $this->getConnection();
+    }
+    public function deletePostCategory($id)
+    {
+        $sql = "DELETE FROM tieuminh_post_category where post_id = '{$id}'";
+        $this->getConnect()->query($sql);
+    }
+
+    /**
+     * @param $id
+     */
+    public function deletePostTag($id)
+    {
+        $sql = "DELETE FROM tieuminh_post_tag where post_id = '{$id}'";
+        $this->getConnect()->query($sql);
+    }
 }
