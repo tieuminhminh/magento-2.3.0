@@ -3,7 +3,7 @@ namespace TieuMinh\SumUp1\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
-class Post extends AbstractDb
+class PostOnly extends AbstractDb
 {
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context

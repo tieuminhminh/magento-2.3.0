@@ -20,8 +20,8 @@ if ($block->getPagerHtml()): ?>
             <?php if (!empty($gridrecords->getData())): ?>
                 <?php foreach ($gridrecords->getData() as $item): ?>
                     <div>
-                        <h2><?= $item['title'] ?></h2>
-                        <img src="<?= $item['thumbnail'] ?>" alt="image" id="imgcnt">
+                        <a href="http://magento.gg/post/post/detail/id/<?=$item['post_id']?>"><h2><?= $item['title'] ?></h2></a>
+                        <a href="http://magento.gg/post/post/detail/id/<?=$item['post_id']?>"><img src="<?= $item['thumbnail'] ?>" alt="image" id="imgcnt" href="<?php $block->getUrl('post/post/detail')?>id/<?=$item['post_id']?>"></a>
                         <p><?= $item['short_description'] ?>
                         <p><b>Category:<?= $gridrecords->cateName($item['post_id']) ?></b></p>
                         <p>

@@ -7,7 +7,7 @@ namespace TieuMinh\SumUp1\Ui\Component\Post;
  */
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
-
+    protected $form;
     protected $loadedData;
     /**
      * DataProvider constructor.
@@ -28,8 +28,21 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         array $meta = [],
         array $data = []
     ) {
+        $this->form = $collectionFactory;
         $this->collection = $collectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
-
+    public function getData()
+    {
+        if (isset($this->loadedData)) {
+            return $this->loadedData;
+        }
+        $items = $this->collection->getItems();
+        foreach ($items as $item) {
+            $thumbnail[0]["url"] = $item->getThumbnail();
+            $this->loadedData[$item->getId()] = $item->getData();
+            $this->loadedData[$item->getId()]["thumbnail"] = $thumbnail;
+        }
+        return $this->loadedData;
+    }
 }

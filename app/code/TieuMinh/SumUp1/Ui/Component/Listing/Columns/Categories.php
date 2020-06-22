@@ -33,7 +33,6 @@ class Categories extends Column
         foreach ($dataSource["data"]["items"] as &$item) {
             $item["category"] = implode(",", $item["name"]);
         }
-        var_dump($dataSource['data']['items']);
         return $dataSource;
     }
 }

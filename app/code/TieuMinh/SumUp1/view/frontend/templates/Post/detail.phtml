@@ -1,0 +1,22 @@
+<?php /**
+ * @var \TieuMinh\SumUp1\Block\Post\Detail $block ;
+ *
+ */
+$post = $block->getPost();
+$tag = $block->getTag();
+$cate = $block->getcate();
+?>
+<?php if (!empty($post)): ?>
+<div>
+    <h2><b><?=$post[0]['title']?></b></h2>
+    <img src="<?= $post[0]['thumbnail'] ?>" alt="thumbnail">
+    <p>Content:<?=$post[0]['content']?></p>
+    <p>URL_KEY:<?=$post[0]['url_key']?></p>
+    <p><?=$post[0]['publish_date_from']?></p>
+    <p><?=$post[0]['publish_date_to']?></p>
+    <?php if (!empty($cate) || !empty($tag)): ?>
+    <p><b>Category:</b><?=$cate?></p>
+    <p><b>Tag:</b><?=$tag?></p>
+    <?php endif; ?>
+    <?php endif; ?>
+</div>

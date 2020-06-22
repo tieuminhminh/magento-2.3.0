@@ -1,7 +1,7 @@
 <?php
 namespace TieuMinh\SumUp1\Controller\Adminhtml\Post;
-
-class Save extends \Magento\Framework\App\Action\Action
+use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
+class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterface
 {
     /**
      * @var \Magento\Framework\View\Result\PageFactory
@@ -18,7 +18,7 @@ class Save extends \Magento\Framework\App\Action\Action
     private $_relatedProduct;
 
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \TieuMinh\SumUp1\Model\CategoryFactory $category,
         \TieuMinh\SumUp1\Model\PostCategoryFactory $post_Collection_category,
@@ -39,8 +39,7 @@ class Save extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $postId = "";
-        $a = $this->getRequest()->getParams();
+        $postId = 1;
         $data = $this->handleData();
         $postModel = $this->post->create();
         $postCollection = $postModel->getCollection();
@@ -49,10 +48,11 @@ class Save extends \Magento\Framework\App\Action\Action
 
         if ($postSize > 0 || !isset($data["post"]["title"])) {
             $this->messageManager->addErrorMessage(__('Your Post name has been existed !!!'));
-            return $this->_redirect($this->getUrl("*/*/"));
+            return $this->_redirect($this->getUrl("sumup1/post/listing"));
         } else {
             if (isset($data)) {
                 $postModel->addData($data["post"]);
+
                 $postId = $postModel->save()->getId();
                 if (!empty($postId)) {
                     if (!empty($data['tag'])) {

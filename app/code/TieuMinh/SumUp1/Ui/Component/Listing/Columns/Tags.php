@@ -24,7 +24,7 @@ class Tags extends Column
     public function prepareDataSource(array $dataSource)
     {
         foreach ($dataSource["data"]["items"] as &$item) {
-            $item["tag"] = implode(", ", $item["tag_name"]);
+            $item["tag"] = implode(", ", $item["name"]);
         }
         return $dataSource;
     }

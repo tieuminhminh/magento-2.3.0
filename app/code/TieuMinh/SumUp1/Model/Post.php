@@ -9,10 +9,5 @@ class Post extends \Magento\Framework\Model\AbstractModel
     }
 
 
-    public function getPostCate()
-    {
-        $id = $this->getId();
-
-    }
 
 }

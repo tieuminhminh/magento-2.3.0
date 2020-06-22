@@ -2,8 +2,6 @@
 
 namespace TieuMinh\SumUp1\Ui\Component;
 
-use Magento\Authorization\Model\ResourceModel\Role\CollectionFactory;
-
 /**
  * Class DataProvider
  * @package TieuMinh\SumUp1\Ui\Component

@@ -22,11 +22,8 @@
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
         <item name="buttons" xsi:type="array">
-            <!--  <item name="back" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\BackButton</item>
-              <item name="delete" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\DeleteButton</item>
-              <item name="reset" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\ResetButton</item>-->
-            <item name="save" xsi:type="string">TieuMinh\SumUp1\Block\Adminhtml\Button\Post\SaveButton</item>
-            <!--    <item name="save_and_continue" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\SaveAndContinueButton</item>-->
+        <item name="back" xsi:type="string">TieuMinh\SumUp1\Block\Adminhtml\Button\Post\BackButton</item>
+        <item name="save" xsi:type="string">TieuMinh\SumUp1\Block\Adminhtml\Button\Post\SaveButton</item>
         </item>
     </argument>
     <!-- Config and button end-->
@@ -60,19 +57,27 @@
             </item>
         </argument>
         <!--post id field start-->
-        <field name="post_id">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Title</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                </item>
-            </argument>
-            <settings>
-                <label translate="true">id</label>
-                <visible>false</visible>
-            </settings>
-        </field>
+<!--        <field name="post_id">-->
+<!--            <argument name="data" xsi:type="array">-->
+<!--                <item name="config" xsi:type="array">-->
+<!--                    <item name="label" xsi:type="string" translate="true">xxxx</item>-->
+<!--                    <item name="dataType" xsi:type="string">text</item>-->
+<!--                    <item name="formElement" xsi:type="string">hidden</item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--        </field>-->
+<!--        <field name="post_id" formElement="input">-->
+<!--            <argument name="data" xsi:type="array">-->
+<!--                <item name="config" xsi:type="array">-->
+<!--                    <item name="source" xsi:type="string">block</item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--            <settings>-->
+<!--                <dataType>text</dataType>-->
+<!--                <visible>false</visible>-->
+<!--                <dataScope>post_id</dataScope>-->
+<!--            </settings>-->
+<!--        </field>-->
         <!--post id field end-->
         <!--title field start-->
         <field name="title">
@@ -81,6 +86,10 @@
                     <item name="label" xsi:type="string" translate="true">Title</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
+
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
                 </item>
             </argument>
         </field>
@@ -90,7 +99,7 @@
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Listing\Columns\Status</item>
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">Save</item>
+                    <item name="source" xsi:type="string">block</item>
                 </item>
             </argument>
             <settings>
@@ -211,6 +220,9 @@
                     <item name="rows" xsi:type="number">5</item>
                     <item name="dataType" translate="true" xsi:type="string">text</item>
                 </item>
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
             </argument>
         </field>
         <!--short_description field end-->
@@ -225,6 +237,9 @@
                         <item name="add_widgets" xsi:type="boolean">false</item>
                         <item name="add_images" xsi:type="boolean">true</item>
                         <item name="add_directives" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
@@ -267,6 +282,9 @@
                     <item name="uploaderConfig" xsi:type="array">
                         <item name="url" xsi:type="url" path="sumup1/post/fileupload"/>
                     </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -298,7 +316,9 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="boolean">false</item>
-                    <item name="content" xsi:type="string" translate="true">Related products are shown to customers in addition to the blog post the customer is looking at.</item>
+                    <item name="content" xsi:type="string" translate="true">Related products are shown to customers in
+                        addition to the blog post the customer is looking at.
+                    </item>
                     <item name="template" xsi:type="string">ui/form/components/complex</item>
                 </item>
             </argument>
@@ -310,11 +330,15 @@
                         <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
                         <item name="actions" xsi:type="array">
                             <item name="0" xsi:type="array">
-                                <item name="targetName" xsi:type="string">tieuminh_sumup1_post_form.tieuminh_sumup1_post_form.related_product.modal</item>
+                                <item name="targetName" xsi:type="string">
+                                    tieuminh_sumup1_post_form.tieuminh_sumup1_post_form.related_product.modal
+                                </item>
                                 <item name="actionName" xsi:type="string">toggleModal</item>
                             </item>
                             <item name="1" xsi:type="array">
-                                <item name="targetName" xsi:type="string">tieuminh_sumup1_post_form.tieuminh_sumup1_post_form.related_product.modal.tieuminh_sumup1_relatedproduct_listing</item>
+                                <item name="targetName" xsi:type="string">
+                                    tieuminh_sumup1_post_form.tieuminh_sumup1_post_form.related_product.modal.tieuminh_sumup1_relatedproduct_listing
+                                </item>
                                 <item name="actionName" xsi:type="string">render</item>
                             </item>
                         </item>
@@ -342,7 +366,9 @@
                                 <item name="class" xsi:type="string">action-primary</item>
                                 <item name="actions" xsi:type="array">
                                     <item name="0" xsi:type="array">
-                                        <item name="targetName" xsi:type="string">index=tieuminh_sumup1_relatedproduct_listing</item>
+                                        <item name="targetName" xsi:type="string">
+                                            index=tieuminh_sumup1_relatedproduct_listing
+                                        </item>
                                         <item name="actionName" xsi:type="string">save</item>
                                     </item>
                                     <item name="1" xsi:type="string">closeModal</item>
@@ -357,8 +383,12 @@
                     <item name="config" xsi:type="array">
                         <item name="autoRender" xsi:type="boolean">false</item>
                         <item name="dataScope" xsi:type="string">tieuminh_sumup1_relatedproduct_listing</item>
-                        <item name="externalProvider" xsi:type="string">tieuminh_sumup1_relatedproduct_listing.tieuminh_sumup1_relatedproduct_listing_data_source</item>
-                        <item name="selectionsProvider" xsi:type="string">tieuminh_sumup1_relatedproduct_listing.tieuminh_sumup1_relatedproduct_listing.columns.ids</item>
+                        <item name="externalProvider" xsi:type="string">
+                            tieuminh_sumup1_relatedproduct_listing.tieuminh_sumup1_relatedproduct_listing_data_source
+                        </item>
+                        <item name="selectionsProvider" xsi:type="string">
+                            tieuminh_sumup1_relatedproduct_listing.tieuminh_sumup1_relatedproduct_listing.columns.ids
+                        </item>
                         <item name="ns" xsi:type="string">tieuminh_sumup1_relatedproduct_listing</item>
                         <item name="render_url" xsi:type="url" path="mui/index/render"/>
                         <item name="realTimeLink" xsi:type="boolean">true</item>
