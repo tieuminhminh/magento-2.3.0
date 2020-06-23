@@ -22,7 +22,7 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \TieuMinh\SumUp1\Model\CategoryFactory $category,
         \TieuMinh\SumUp1\Model\PostCategoryFactory $post_Collection_category,
-        \TieuMinh\SumUp1\Model\PostFactory $post,
+        \TieuMinh\SumUp1\Model\PostOnlyFactory $post,
         \TieuMinh\SumUp1\Model\FormFactory $form,
         \TieuMinh\SumUp1\Model\ResourceModel\Tag\CollectionFactory $tagFactory,
     \TieuMinh\SumUp1\Model\RelatedProductFactory $_relatedProduct

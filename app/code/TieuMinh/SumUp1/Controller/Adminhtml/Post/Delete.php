@@ -5,7 +5,7 @@ namespace TieuMinh\SumUp1\Controller\Adminhtml\Post;
 use Magento\Backend\App\Action;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Result\PageFactory;
-use TieuMinh\SumUp1\Model\PostFactory;
+use TieuMinh\SumUp1\Model\PostOnlyFactory;
 use TieuMinh\SumUp1\Model\ResourceModel\RelatedProduct\CollectionFactory;
 
 class Delete extends Action
@@ -17,7 +17,7 @@ class Delete extends Action
     public function __construct(
         Action\Context $context,
         PageFactory $pageFactory,
-        PostFactory $postFactory,
+        PostOnlyFactory $postFactory,
         CollectionFactory $relatedProductCollection
     ) {
         $this->_relatedProduct = $relatedProductCollection;

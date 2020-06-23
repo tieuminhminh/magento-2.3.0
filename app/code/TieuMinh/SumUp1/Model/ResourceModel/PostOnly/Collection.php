@@ -12,7 +12,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        $this->_init('TieuMinh\SumUp1\Model\Post', 'TieuMinh\SumUp1\Model\ResourceModel\Post');
+        $this->_init('TieuMinh\SumUp1\Model\PostOnly', 'TieuMinh\SumUp1\Model\ResourceModel\PostOnly');
     }
 
 }

@@ -32,6 +32,7 @@ class MassDelete extends Action
         $relatedProductCollection = $this->_relatedProduct->create();
         $postResourceModel = $this->_postFactory->create()->getResource();
         try {
+
             foreach ($collection as $item) {
                 $postResourceModel->deletePostCategory($item->getId());
                 $postResourceModel->deletePostTag($item->getId());
@@ -49,15 +50,9 @@ class MassDelete extends Action
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
             return $resultRedirect->setPath('sumup1/post/listing');
         } catch (LocalizedException $e) {
-            $this->messageManager->addErrorMessage(__("Error Delete Function!"));
+            $this->messageManager->addErrorMessage(__("Can delete %1 items"));
             return $this->_redirect($this->getUrl("sumup1/post/listing"));
         }
     }
 
-    public function delete($id)
-    {
-        $conn = $this->_postFactory->create()->getConnection();
-        $sql = "DELETE FROM tieuminh_post_set where post_id = $id";
-        $conn->query($sql);
-    }
 }

@@ -21,7 +21,7 @@ class PostOnly extends AbstractDb
     }
     public function deletePostCategory($id)
     {
-        $sql = "DELETE FROM tieuminh_post_category where post_id = '{$id}'";
+        $sql = "DELETE FROM tieuminh_post_category where post_id = $id";
         $this->getConnect()->query($sql);
     }
     /**
@@ -29,7 +29,7 @@ class PostOnly extends AbstractDb
      */
     public function deletePostTag($id)
     {
-        $sql = "DELETE FROM tieuminh_post_tag where post_id = '{$id}'";
+        $sql = "DELETE FROM tieuminh_post_tag where post_id = $id";
         $this->getConnect()->query($sql);
     }
     public function savePostTag($data, $id)
