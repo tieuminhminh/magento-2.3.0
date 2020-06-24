@@ -46,7 +46,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
             $data = $this->getConnection()->fetchAll($select);
             foreach ($data as $row) {
-                $postCategory[$row['post_id']][] = $row['name'];
+                $postCategory[$row['post_id']][] = $row['category_set_id'];
             }
         }
 
@@ -82,7 +82,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
             $data = $this->getConnection()->fetchAll($select);
             foreach ($data as $row) {
-                $postTags[$row['post_id']][] = $row['name'];
+                $postTags[$row['post_id']][] = $row['tag_id'];
             }
         }
         foreach ($this as $post) {
@@ -107,8 +107,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         );
 
         $data = $this->getConnection()->fetchAll($select);
-        if (!empty($data[0]['name']))
-            return $data[0]['name'];
+        if (!empty($data[0]['category_id']))
+            return $data[0]['category_id'];
         return "";
     }
 

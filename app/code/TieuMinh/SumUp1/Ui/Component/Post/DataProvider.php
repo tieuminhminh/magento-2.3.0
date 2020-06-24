@@ -14,7 +14,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
-     * @param \TieuMinh\SumUp1\Model\ResourceModel\Form\CollectionFactory $collectionFactory
+     * @param \TieuMinh\SumUp1\Model\ResourceModel\Post\CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data
      */
@@ -24,7 +24,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $name,
         $primaryFieldName,
         $requestFieldName,
-        \TieuMinh\SumUp1\Model\ResourceModel\Form\CollectionFactory $collectionFactory,
+        \TieuMinh\SumUp1\Model\ResourceModel\Post\CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = []
     ) {

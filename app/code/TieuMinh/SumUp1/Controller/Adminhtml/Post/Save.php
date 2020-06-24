@@ -39,7 +39,6 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
 
     public function execute()
     {
-        $postId = 1;
         $data = $this->handleData();
         $postModel = $this->post->create();
         $postCollection = $postModel->getCollection();
@@ -52,7 +51,6 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
         } else {
             if (isset($data)) {
                 $postModel->addData($data["post"]);
-
                 $postId = $postModel->save()->getId();
                 if (!empty($postId)) {
                     if (!empty($data['tag'])) {
@@ -114,7 +112,7 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
         }
 
         if (!isset($data["thumbnail"][0]["url"])) {
-            $result["post"]["thumbnail"] = null;
+            $result["post"]["thumbnail"] = 'http://vietnam.gg/static/version1592823440/frontend/Magento/luma/vi_VN/Magento_Catalog/images/product/placeholder/image.jpg';
         } else {
             $result["post"]["thumbnail"] = $data["thumbnail"][0]["url"];
         }

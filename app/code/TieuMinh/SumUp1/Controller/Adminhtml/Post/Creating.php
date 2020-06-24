@@ -42,7 +42,7 @@ class Creating extends Action implements HttpGetActionInterface
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-
+        $resultPage->getConfig()->getTitle()->prepend('Add New Post');
         /**
          * @var \Magento\Framework\App\Request\Http $request
          */

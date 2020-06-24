@@ -42,7 +42,7 @@ class Listing extends Action implements HttpGetActionInterface
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-
+        $resultPage->getConfig()->getTitle()->prepend('All Posts');
         /**
          * @var \Magento\Framework\App\Request\Http $request
          */

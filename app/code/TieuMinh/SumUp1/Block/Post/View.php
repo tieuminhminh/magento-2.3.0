@@ -52,7 +52,7 @@ class View extends Template
         $pager = $this->getLayout()->createBlock(
                 'Magento\Theme\Block\Html\Pager',
                 'custom.history.pager'
-            )->setAvailableLimit([1 => 1, 3 => 3, 15 => 15, 20 => 20])
+            )->setAvailableLimit([5 => 5, 10 => 10, 15 => 15, 20 => 20])
                 ->setShowPerPage(true)->setCollection(
                     $this->getCustomCollection()
                 );
@@ -80,7 +80,7 @@ class View extends Template
             $collection->addFieldToFilter('title', ['like' => '%' . $searchblog . '%']);
         }
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 1;
+        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
 
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);

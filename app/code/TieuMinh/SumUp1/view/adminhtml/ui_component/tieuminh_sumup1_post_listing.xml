@@ -207,15 +207,14 @@
         </column>
         <!--post content column-->
         <!--post status column-->
-        <column name="status">
+        <column name="status" class="TieuMinh\SumUp1\Ui\Component\Listing\Columns\Status">
             <settings>
-                <options class="TieuMinh\SumUp1\Ui\Component\Listing\Columns\Status"/>
-                <filter>select</filter>
+                <filter>text</filter>
                 <editor>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
-                    <editorType>select</editorType>
+                    <editorType>text</editorType>
                 </editor>
                 <label translate="true">Status</label>
             </settings>
@@ -234,7 +233,7 @@
         </column>
         <!--post url key column-->
         <!--post tag column-->
-        <column name="tag_id">
+        <column name="tag_id" class="TieuMinh\SumUp1\Ui\Component\Listing\Columns\Tags">
             <settings>
                 <filter>text</filter>
                 <editor>
@@ -248,7 +247,7 @@
         </column>
         <!--post tag column-->
         <!--post category column-->
-        <column name="category_set_id">
+        <column name="category_set_id" class="TieuMinh\SumUp1\Ui\Component\Listing\Columns\Categories">
             <settings>
                 <filter>text</filter>
                 <editor>

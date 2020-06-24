@@ -1,3 +1,2 @@
-post_form.xml: toggle check box: <dataScope>, <item name = "default">, <settings> attribute,
-
-su dung preference de thay mot class bang mot class khac (viet trong etc/di.xml)
+reg =requirejs('uiRegistry')
+reg.get('deps name')

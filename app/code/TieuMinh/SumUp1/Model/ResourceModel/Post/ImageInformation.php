@@ -10,6 +10,7 @@ use Magento\Framework\Filesystem\Directory\WriteInterface;
 
 class ImageInformation
 {
+
     /**
      * Path in /pub/media directory
      */
