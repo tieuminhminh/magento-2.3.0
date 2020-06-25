@@ -2,6 +2,7 @@
  * @var \TieuMinh\SumUp1\Block\Post\Detail $block ;
  *
  */
+$relatedProduct = $block->fetchRelatedProduct();
 $post = $block->getPost();
 $tag = $block->getTag();
 $cate = $block->getcate();
@@ -12,11 +13,34 @@ $cate = $block->getcate();
     <img src="<?= $post[0]['thumbnail'] ?>" alt="thumbnail">
     <p>Content:<?=$post[0]['content']?></p>
     <p>URL_KEY:<?=$post[0]['url_key']?></p>
-    <p><?=$post[0]['publish_date_from']?></p>
-    <p><?=$post[0]['publish_date_to']?></p>
+    <p>From: <?=$post[0]['publish_date_from']?></p>
+    <p>To: <?=$post[0]['publish_date_to']?></p>
     <?php if (!empty($cate) || !empty($tag)): ?>
-    <p><b>Category:</b><?=$cate?></p>
-    <p><b>Tag:</b><?=$tag?></p>
+    <?php foreach ($cate as $item): ?>
+    <p><b>Category: </b><?=$item['name']?></p>
+    <?php endforeach; ?>
+
+        <?php foreach ($tag as $item): ?>
+    <p><b>Tag: </b><?=$item['name']?></p>
+        <?php endforeach; ?>
     <?php endif; ?>
+    <?php endif; ?>
+</div>
+<h2><b>Related Product:</b></h2>
+<div style="display: flex">
+
+    <?php $data = $relatedProduct->toArray();?>
+    <?php if (!empty($data['items'])):?>
+        <?php $tmp = 0;?>
+    <?php foreach ($data['items'] as $item): ?>
+        <div style="padding-right: 10px;">
+            <p style="width: 200px"><b><?=$item['name']?></b></p>
+            <img src="<?=$item['thumbnail'] ?>" alt="related product">
+            <p style="color: red"><b><?=$item['price']?></b></p>
+        </div>
+            <?php $tmp++?>
+            <?php if ($tmp == 3): break; ?>
+            <?php endif; ?>
+    <?php endforeach; ?>
     <?php endif; ?>
 </div>

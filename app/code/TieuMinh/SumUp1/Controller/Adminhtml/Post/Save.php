@@ -72,6 +72,8 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
                     if (!empty($data["relatedProduct"])) {
                         foreach ($data["relatedProduct"] as $item) {
                             $item["post_id"] = $postId;
+                            $item['product_id'] = $item['id'];
+                            unset($item['id']);
                             $this->_relatedProduct->create()->addData($item)->save();
                         }
                     }
@@ -79,6 +81,7 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
                 }
             }
         }
+//        $this->_pageFactory->create()->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
         return $this->_redirect($this->getUrl("sumup1/post/listing"));
     }
 
@@ -90,7 +93,9 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
         $result = [];
         $relatedProduct = [];
         $data = $this->getRequest()->getParams();
-        $category = $data["category_id"];
+
+
+        $category = $data["category_set_id"];
         $result["tag"] = $data["tag_id"];
 
         if (!empty($data["links"])) {
@@ -101,7 +106,7 @@ class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterfa
             $data["key"],
             $data["blog_product_listing"],
             $data["form_key"],$data["links"],
-            $data["category_id"],
+            $data["category_set_id"],
             $data["tag"],
             $data["tag_id"]
         );

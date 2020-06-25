@@ -93,39 +93,5 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return $this;
     }
 
-    public function cateName($id)
-    {
-        $select = $this->getConnection()->select()->from(
-            ['tpc' => "tieuminh_post_category"]
-        )->join(
-            ['tcs' => $this->getResource()->getTable('tieuminh_category_set')],
-            'tpc.category_set_id = tcs.category_id',
-            ['name']
-        )->where(
-            'tpc.post_id IN (?)',
-            $id
-        );
 
-        $data = $this->getConnection()->fetchAll($select);
-        if (!empty($data[0]['category_id']))
-            return $data[0]['category_id'];
-        return "";
-    }
-
-    public function tagName($id)
-    {
-        $select = $this->getConnection()->select()->from(
-            ['tpt' => "tieuminh_post_tag"]
-        )->join(
-            ['tts' => $this->getResource()->getTable('tieuminh_tag_set')],
-            'tts.tag_id = tpt.tag_id',
-            ['tts.name']
-        )->where(
-            'tpt.post_id IN (?)',
-            $id
-        );
-
-        $data = $this->getConnection()->fetchAll($select);
-        return $data;
-    }
 }

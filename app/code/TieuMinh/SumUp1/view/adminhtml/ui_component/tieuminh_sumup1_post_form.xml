@@ -80,7 +80,7 @@
                 </item>
             </argument>
         </field>
-        <field name="category_id">
+        <field name="category_set_id">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">TieuMinh\SumUp1\Ui\Component\Form\Category</item>
                 <item name="config" xsi:type="array">
@@ -173,19 +173,26 @@
             </argument>
         </field>
         <!--Content field start-->
-        <field name="content" template="ui/form/field" sortOrder="50" formElement="wysiwyg">
+        <field name="description" template="ui/form/field" sortOrder="50" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">description</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="height" xsi:type="string">100px</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">true</item>
+                        <item name="add_directives" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
             <settings>
                 <label translate="true">Content</label>
-                <dataScope>description</dataScope>
+                <dataScope>content</dataScope>
             </settings>
             <formElements>
-                <wysiwyg>
+                <wysiwyg class="Magento\Catalog\Ui\Component\Category\Form\Element\Wysiwyg">
                     <settings>
+                        <rows>8</rows>
                         <wysiwyg>true</wysiwyg>
                     </settings>
                 </wysiwyg>

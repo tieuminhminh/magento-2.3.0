@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TieuMinh\SumUp1\Ui\Component\Form;
 
 use Magento\Framework\Option\ArrayInterface;

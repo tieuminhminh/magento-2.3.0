@@ -1,43 +1,61 @@
 <?php /**
- * @var \TieuMinh\SumUp1\Block\Post\View $block ;
- *
+ * @var \TieuMinh\SumUp1\Block\Post\View $block;
  */
-if ($block->getPagerHtml()): ?>
+
+if ($block->getPagerHtml()):
+    ?>
+
+<!--from create-->
     <div>
         <form method="get" action="<?= $block->getSearchUrl(); ?>">
-            <input type="search" name="q" placeholder="<?= __('Search...') ?>"/>
+            <input type="search" name="search" placeholder="<?= __('Search...') ?>"/>
             <button title="Submit" type="submit" style="margin: 20px;">Search
             </button>
         </form>
     </div>
+    <!--from create-->
     <div><?php echo $block->getPagerHtml(); ?></div>
 <?php endif ?>
 
-<?php $gridrecords = $block->getCustomCollection(); ?>
-<?php if ($gridrecords && count($gridrecords)): ?>
+<?php $_data = $block->getCustomCollection();?>
+<?php if ($_data->getSize()): ?>
     <div>
-        <div class="content">
-            <?php if (!empty($gridrecords->getData())): ?>
-                <?php foreach ($gridrecords->getData() as $item): ?>
-                    <div>
-                        <a href="http://magento.gg/post/post/detail/id/<?=$item['post_id']?>"><h2><?= $item['title'] ?></h2></a>
-                        <a href="http://magento.gg/post/post/detail/id/<?=$item['post_id']?>"><img src="<?= $item['thumbnail'] ?>" alt="image" height="300px" width="500px" href="<?php $block->getUrl('post/post/detail')?>id/<?=$item['post_id']?>"></a>
-                        <p><?= $item['short_description'] ?>
-                        <p><b>Category:<?= $gridrecords->cateName($item['post_id']) ?></b></p>
-                        <p>
-                            <?php if (!empty($gridrecords->tagName($item['post_id']))): ?>
-                                <?php foreach ($gridrecords->tagName($item['post_id']) as $value): ?>
-                                    <b><?= $value['name'] ?></b>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </p>
-                        <a href="#"><u><i>Read more...</i></u></a></p>
+        <!--main content-->
+        <div>
+            <!--list post-->
+            <?php foreach ($_data as $item): ?>
+                <div>
+                    <a href="<?= $block->getUrl('post/post/detail', ['id' => $item->getPostId()]) ?>">
+                        <h2><?= $item->getTitle() ?></h2></a>
+                    <a href="<?= $block->getUrl('post/post/detail', ['id' => $item->getPostId()]) ?>">
+                        <img src="<?= $item['thumbnail'] ?>" alt="image" height="300px" width="500px"
+                             href="<?= $block->getUrl('post/post/detail', ['id' => $item->getPostId()]) ?>">
+                    </a>
+                    <p><b><?php echo __('Short Description: %1', $item->getShortDescription()) ?></b></p>
 
-                    </div>
+                    <p><b><?php echo __('Category:') ?></b></p>
+                    <?php if (!empty($item->getCategorySetId())):?>
+                        <?php foreach ($_data->cateName($item->getPostId()) as $value): ?>
+                            <p><?= $value['name'] ?></p>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
-                <?php endforeach; ?>
-            <?php endif; ?>
+                    <p><b><?php echo __('Tag:') ?></b></p>
+                        <?php if (!empty($item->getTagId())):?>
+                            <?php foreach ($_data->tagName($item->getPostId()) as $value): ?>
+                              <p><?= $value['name'] ?></p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                    <a href="<?= $block->getUrl('post/post/detail', ['id' => $item->getPostId()]) ?>">
+                        <p><u><i><?php echo __('Read More...')?></i></u></p></a>
+
+                </div>
+
+            <?php endforeach; ?>
+            <!--list post-->
         </div>
+        <!--main content-->
     </div>
 
     <?php if ($block->getPagerHtml()): ?>

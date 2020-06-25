@@ -14,9 +14,9 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="post_id"/>
         </constraint>
-             <index referenceId="INDEX_SEVERITY" indexType="btree">
-                  <column name="title"/>
-              </index>
+        <index referenceId="TIEUMINH_POST_SET_TITLE" indexType="fulltext">
+            <column name="title"/>
+        </index>
     </table>
     <!-- post table-->
     <!-- category set table-->

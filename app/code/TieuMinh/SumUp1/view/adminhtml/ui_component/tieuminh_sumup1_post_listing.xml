@@ -30,7 +30,7 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-<!--        <aclResource>Magento_Cms::block</aclResource>-->
+        <aclResource>TieuMinh_SumUp1::listPost</aclResource>
         <dataProvider class="TieuMinh\SumUp1\Ui\Component\DataProvider" name="tieuminh_sumup1_post_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
@@ -44,9 +44,9 @@
         <settings>
             <sticky>true</sticky>
         </settings>
-        <bookmark name="bookmarks"/>
-        <columnsControls name="columns_controls"/>
-<!--        <filterSearch name="fulltext"/>-->
+        <columnsControls name="columns_controls">
+        </columnsControls>
+        <filterSearch name="fulltext"/>
         <!--filter setting-->
         <filters name="listing_filters">
             <settings>
@@ -59,17 +59,6 @@
                     </filters>
                 </templates>
             </settings>
-            <filterSelect name="store_id" provider="${ $.parentName }">
-                <settings>
-                    <captionValue>0</captionValue>
-                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
-                    <label translate="true">Store View</label>
-                    <dataScope>store_id</dataScope>
-                    <imports>
-                        <link name="visible">componentType = column, index = ${ $.index }:visible</link>
-                    </imports>
-                </settings>
-            </filterSelect>
         </filters>
         <!--filter setting-->
         <!--massaction-->
@@ -109,21 +98,25 @@
         </massaction>
         <!--massaction-->
         <!--pagginng-->
-        <paging name="listing_paging"/>
+        <paging name="listing_paging">
+            <settings>
+                <sizesConfig>
+                    <component>Temando_Shipping/js/grid/paging/sizes</component>
+                </sizesConfig>
+            </settings>
+        </paging>
         <!--pagginng-->
         <!--export csv-->
-        <exportButton class="Magento\Ui\Component\ExportButton">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="options" xsi:type="array">
-                    <item name="csv" xsi:type="array">
+        <exportButton class="Magento\Ui\Component\ExportButton" component="Magento_Ui/js/grid/export" displayArea="dataGridActions">
+            <settings>
+                <options>
+                    <option name="cvs" xsi:type="array">
                         <item name="value" xsi:type="string">csv</item>
                         <item name="label" xsi:type="string" translate="true">CSV</item>
                         <item name="url" xsi:type="string">sumup1/export/PostCsv</item>
-                    </item>
-                </item>
-            </item>
-        </argument>
+                    </option>
+                </options>
+            </settings>
         </exportButton>
         <!--export csv-->
     </listingToolbar>
@@ -167,12 +160,12 @@
         <!--post title column-->
         <column name="title">
             <settings>
-                <filter>text</filter>
+                <filter>fulltext</filter>
                 <editor>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
-                    <editorType>text</editorType>
+                    <editorType>fulltext</editorType>
                 </editor>
                 <label translate="true">Title</label>
             </settings>

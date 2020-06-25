@@ -47,7 +47,7 @@ class PostCsv extends Action
      */
     public function execute()
     {
-        $listProduct = $this->_colectionFactory->create()->getData();
+        $listPost = $this->_colectionFactory->create()->getData();
         $name = date('m_d_Y_H_i_s');
         $filepath = 'export/custom' . $name . '.csv';
         try {
@@ -64,7 +64,7 @@ class PostCsv extends Action
         /* Write Header */
         $stream->writeCsv($header);
 
-        foreach ($listProduct as $item) {
+        foreach ($listPost as $item) {
             $stream->writeCsv($item);
         }
 

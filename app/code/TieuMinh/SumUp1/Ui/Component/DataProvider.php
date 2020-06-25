@@ -30,4 +30,12 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLoadedData()
+    {
+        $this->collection->addFieldToFilter($this->getData());
+        return $this->loadedData;
+    }
 }

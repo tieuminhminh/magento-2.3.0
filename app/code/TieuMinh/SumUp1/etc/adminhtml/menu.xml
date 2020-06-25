@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="TieuMinh_SumUp1::post" title="Sumup 1" module="TieuMinh_SumUp1" sortOrder="40" resource="TieuMinh_SumUp1::post" parent="Magento_Backend::content"/>
-        <add id="TieuMinh_SumUp1::post_all" title="All Posts" module="TieuMinh_SumUp1" sortOrder="10" parent="TieuMinh_SumUp1::post" action="sumup1/post/listing" resource="TieuMinh_SumUp1::post_all"/>
-        <add id="TieuMinh_SumUp1::category" title="Categories" module="TieuMinh_SumUp1" sortOrder="11" parent="TieuMinh_SumUp1::post" action="sumup1/category/listing" resource="TieuMinh_SumUp1::post_all"/>
+        <add id="TieuMinh_SumUp1::listPost" title="All Posts" module="TieuMinh_SumUp1" sortOrder="10" parent="TieuMinh_SumUp1::post" action="sumup1/post/listing" resource="TieuMinh_SumUp1::listPost"/>
+        <add id="TieuMinh_SumUp1::category" title="Categories" module="TieuMinh_SumUp1" sortOrder="11" parent="TieuMinh_SumUp1::post" action="sumup1/category/listing" resource="TieuMinh_SumUp1::category"/>
     </menu>
 </config>

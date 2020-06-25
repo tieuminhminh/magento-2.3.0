@@ -24,6 +24,7 @@ class TopMenu
         }
         $html .= "<a href=\"" . $swappartyUrl . "\" class=\"level-top ui-corner-all\"><span class=\"ui-menu-icon ui-icon ui-icon-carat-1-e\"></span><span>" . __("Blog") . "</span></a>";
         $html .= "</li>";
+        
         return $html;
     }
 }
