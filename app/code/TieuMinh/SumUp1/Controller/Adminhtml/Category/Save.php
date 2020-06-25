@@ -1,7 +1,9 @@
 <?php
 namespace TieuMinh\SumUp1\Controller\Adminhtml\Category;
 
-class Save extends \Magento\Framework\App\Action\Action
+use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
+
+class Save extends \Magento\Backend\App\Action implements  HttpPostActionInterface
 {
     /**
      * @var \Magento\Framework\View\Result\PageFactory
@@ -10,26 +12,26 @@ class Save extends \Magento\Framework\App\Action\Action
     protected $category;
 
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context $context,
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \TieuMinh\SumUp1\Model\CategoryFactory $category
-
     ) {
-        parent::__construct($context);
+        $this->_pageFactory = $pageFactory;
         $this->category = $category;
+        return parent::__construct($context);
     }
 
     public function execute()
     {
         $data =  $this->getRequest()->getParams();
         $id = $this->getRequest()->getParam('id');
-    var_dump($data);
-    var_dump($id);
-    die;
+
         $category = $this->category->create();
-        $category->setData('name', $data['name'])
+        $id = $category->setData('name', $data['name'])
             ->setData('parent_id', $data['parent_id'])
-            ->save();
+            ->save()->getId();
         $this->messageManager->addSuccessMessage("Create Category Successfully");
+
         return $this->_redirect($this->getUrl("sumup1/category/listing"));
     }
 

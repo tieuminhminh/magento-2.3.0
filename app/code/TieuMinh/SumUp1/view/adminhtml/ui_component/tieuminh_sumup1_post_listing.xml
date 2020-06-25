@@ -82,8 +82,8 @@
                     <url path="sumup1/post/poststatus">
                         <param name="status">1</param>
                     </url>
-                    <type>enable</type>
-                    <label translate="true">Enable</label>
+                    <type>publish</type>
+                    <label translate="true">Publish</label>
                 </settings>
             </action>
             <action name="1">
@@ -91,8 +91,8 @@
                     <url path="sumup1/post/poststatus">
                         <param name="status">0</param>
                     </url>
-                    <type>disable</type>
-                    <label translate="true">Disable</label>
+                    <type>draft</type>
+                    <label translate="true">Draft</label>
                 </settings>
             </action>
         </massaction>

@@ -23,8 +23,9 @@ class TopMenu
             $html .= "<li class=\"level0 nav-4 level-top parent ui-menu-item\">";
         }
         $html .= "<a href=\"" . $swappartyUrl . "\" class=\"level-top ui-corner-all\"><span class=\"ui-menu-icon ui-icon ui-icon-carat-1-e\"></span><span>" . __("Blog") . "</span></a>";
+
         $html .= "</li>";
-        
+
         return $html;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace TieuMinh\SumUp1\Model\ResourceModel\FormCategory;
 
+use TieuMinh\SumUp1\Model\FormCategory;
+
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     protected $_idFieldName = 'category_id';
@@ -12,7 +14,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct(
     ) {
-        $this->_init('TieuMinh\SumUp1\Model\FormCategory', 'TieuMinh\SumUp1\Model\ResourceModel\FormCategory');
+        $this->_init(FormCategory::class, \TieuMinh\SumUp1\Model\ResourceModel\FormCategory::class);
     }
 
 

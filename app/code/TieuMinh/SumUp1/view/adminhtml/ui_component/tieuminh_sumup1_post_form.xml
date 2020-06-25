@@ -23,7 +23,7 @@
     <settings>
         <buttons>
             <button name="save" class="TieuMinh\SumUp1\Block\Adminhtml\Button\Post\SaveButton"/>
-            <!--            <button name="back" class="NgocThanh\Blog\Block\Adminhtml\Post\Edit\BackButton"/>-->
+            <!--            <button name="back" class="TieuMinh\SumUp1\Block\Adminhtml\Post\Edit\BackButton"/>-->
             <button name="delete" class="TieuMinh\SumUp1\Block\Adminhtml\Button\Post\BackButton"/>
         </buttons>
         <deps>

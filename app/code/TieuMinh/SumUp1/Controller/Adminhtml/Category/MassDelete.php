@@ -29,6 +29,6 @@ class MassDelete extends Action
             $item->delete();
         }
         $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $collectionSize));
-        return $this->_redirect($this->getUrl("*/*/"));
+        return $this->_redirect($this->getUrl("sumup1/category/listing"));
     }
 }

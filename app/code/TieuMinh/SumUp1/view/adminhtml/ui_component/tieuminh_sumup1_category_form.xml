@@ -8,38 +8,34 @@
 
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    <!-- Config and button start-->
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">
-                tieuminh_sumup1_category_form.tieuminh_sumup1_category_form_data_source
-            </item>
-            <item name="deps" xsi:type="string">
-                tieuminh_sumup1_category_form.tieuminh_sumup1_category_form_data_source
-            </item>
+            <item name="provider" xsi:type="string">tieuminh_sumup1_category_form.tieuminh_sumup1_category_form_data_source</item>
+            <item name="deps" xsi:type="string">tieuminh_sumup1_category_form.tieuminh_sumup1_category_form_data_source</item>
         </item>
-        <item name="label" xsi:type="string" translate="true">Page Information</item>
+        <item name="label" xsi:type="string" translate="true">Category Information</item>
         <item name="config" xsi:type="array">
             <item name="dataScope" xsi:type="string">data</item>
-            <item name="namespace" xsi:type="string">tieuminh_sumup1_category_form</item>
+            <item name="namespace" xsi:type="string">category_save_form</item>
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
-        <item name="buttons" xsi:type="array">
-              <item name="back" xsi:type="string">TieuMinh\SumUp1\Block\Adminhtml\Button\Category\BackButton</item>
-              <!--<item name="delete" xsi:type="string">[Vendor]\[Module]\Block\Adminhtml\Entity\Edit\DeleteButton</item>-->
-            <item name="save" xsi:type="string">TieuMinh\SumUp1\Block\Adminhtml\Button\Category\Save</item>
-        </item>
     </argument>
-    <!-- Config and button end-->
-    <!-- dataSource and data provider declaration start-->
-    <dataSource name="tieuminh_sumup1_category_form_data_source">
+    <settings>
+        <buttons>
+            <button name="save" class="TieuMinh\SumUp1\Block\Adminhtml\Button\Category\Save"/>
+            <!--            <button name="back" class="TieuMinh\SumUp1\Block\Adminhtml\Post\Edit\BackButton"/>-->
+            <button name="delete" class="TieuMinh\SumUp1\Block\Adminhtml\Button\Category\BackButton"/>
+        </buttons>
+        <deps>
+            <dep>tieuminh_sumup1_category_form.tieuminh_sumup1_category_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="category_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">TieuMinh\SumUp1\Ui\Component\Category\Form</argument>
             <argument name="name" xsi:type="string">tieuminh_sumup1_category_form_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">category_id</argument>
-            <argument name="requestFieldName" xsi:type="string">category_id</argument>
-            <argument name="data" xsi:type="array">
-            </argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
         </argument>
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
@@ -74,21 +70,31 @@
             </argument>
         </field>
         <!--title field end-->
-        <!--url key field start-->
-        <field name="parent_id">
+        <!--parent id field start-->
+        <field name="parent_id" formElement="multiselect">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Parent Category</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="default" xsi:type="string">0</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item>
-                    </item>
+                    <item name="source" xsi:type="string">parent category</item>
+                    <item name="default" xsi:type="number">0</item>
                 </item>
             </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>int</dataType>
+                <label translate="true">Parent Category</label>
+                <dataScope>parent_id</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="TieuMinh\SumUp1\Ui\Component\Form\Category"/>
+                    </settings>
+                </multiselect>
+            </formElements>
         </field>
-        <!--url key field end-->
+        <!--parent id field end-->
     </fieldset>
     <!--main end-->
 </form>

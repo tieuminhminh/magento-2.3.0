@@ -16,20 +16,36 @@
                 <label translate="true">Add New Category</label>
             </button>
         </buttons>
-        <spinner>cms_block_columns</spinner>
+        <spinner>spinner_columns</spinner>
         <deps>
             <dep>tieuminh_sumup1_category_listing.tieuminh_sumup1_category_listing_data_source</dep>
         </deps>
     </settings>
     <!--provider setting-->
+    <!--datasource-->
+    <dataSource name="tieuminh_sumup1_category_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">category_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="TieuMinh\SumUp1\Ui\Component\Category\DataProvider" name="tieuminh_sumup1_category_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>category_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <!--datasource-->
     <!--toolbar setting-->
     <listingToolbar name="listing_top">
         <settings>
             <sticky>true</sticky>
         </settings>
-        <bookmark name="bookmarks"/>
-        <columnsControls name="columns_controls"/>
-<!--           <filterSearch name="fulltext"/>-->
+        <columnsControls name="columns_controls">
+        </columnsControls>
+        <filterSearch name="fulltext"/>
         <!--filter setting-->
         <filters name="listing_filters">
             <settings>
@@ -45,7 +61,8 @@
         </filters>
         <!--filter setting-->
         <!--massaction-->
-        <massaction name="listing_massaction">
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <!--delete action-->
             <action name="delete">
                 <settings>
                     <confirm>
@@ -57,80 +74,65 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
-            <action name="edit">
-                <settings>
-                    <callback>
-                        <target>editSelected</target>
-                        <provider>tieuminh_sumup1_category_listing.tieuminh_sumup1_category_listing.cms_page_columns_editor
-                        </provider>
-                    </callback>
-                    <type>edit</type>
-                    <type>edit</type>
-                    <label translate="true">Edit</label>
-                </settings>
-            </action>
+            <!--delete action-->
         </massaction>
         <!--massaction-->
-        <paging name="listing_paging"/>
     </listingToolbar>
     <!--toolbar setting-->
-    <!--datasource-->
-    <dataSource name="nameOfDataSource">
-        <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">TieuMinh\SumUp1\Ui\Component\Category\DataProvider</argument>
-            <argument name="name" xsi:type="string">tieuminh_sumup1_category_listing_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">category_id</argument>
-            <argument name="requestFieldName" xsi:type="string">id</argument>
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
-                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="indexField" xsi:type="string">category_id</item>
-                    </item>
-                </item>
-            </argument>
-        </argument>
-    </dataSource>
-    <!--datasource-->
     <!--list column-->
     <columns name="spinner_columns">
         <!--select column-->
         <selectionsColumn name="ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">category_id</item>
-                </item>
-            </argument>
+            <settings>
+                <indexField>category_id</indexField>
+            </settings>
         </selectionsColumn>
         <!--select column-->
         <!--post id column-->
         <column name="category_id">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="sorting" xsi:type="string">asc</item>
-                </item>
-            </argument>
             <settings>
-                <label translate="true">id</label>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
                 <visible>true</visible>
             </settings>
         </column>
         <!--post id column-->
         <!--post title column-->
         <column name="name">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Category Name</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>fulltext</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>fulltext</editorType>
+                </editor>
+                <label translate="true">Name</label>
+            </settings>
         </column>
         <!--post title column-->
+        <!--parent id column-->
+        <column name="parent_id">
+            <settings>
+                <filter>fulltext</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>fulltext</editorType>
+                </editor>
+                <label translate="true">Parent ID</label>
+            </settings>
+        </column>
+        <!--parent id column-->
+        <!--action column-->
         <actionsColumn name="actions" class="TieuMinh\SumUp1\Ui\Component\Listing\Page\CategoryActions">
             <settings>
                 <indexField>category_id</indexField>
@@ -138,6 +140,7 @@
                 <resizeDefaultWidth>107</resizeDefaultWidth>
             </settings>
         </actionsColumn>
+        <!--action column-->
     </columns>
     <!-- list column-->
 </listing>

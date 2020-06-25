@@ -5,7 +5,7 @@ namespace TieuMinh\SumUp1\Controller\Adminhtml\Post;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
-use TieuMinh\SumUp1\Model\ResourceModel\Post\CollectionFactory;
+use TieuMinh\SumUp1\Model\ResourceModel\PostOnly\CollectionFactory;
 
 class PostStatus extends Action
 {

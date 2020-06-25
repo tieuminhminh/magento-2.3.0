@@ -41,7 +41,7 @@ class Listing extends Action implements HttpGetActionInterface
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-
+        $resultPage->getConfig()->getTitle()->prepend('All Categories');
         /**
          * @var \Magento\Framework\App\Request\Http $request
          */
